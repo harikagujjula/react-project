@@ -1,38 +1,6 @@
-import reactImg from "./assets/react-core-concepts.png";
 import { CORE_CONCEPTS } from "./data";
-
-const reactDescriptions = ["Fundamental", "Core", "Crucial"];
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * (max + 1));
-}
-
-// Making use of Object destructuring for parameter props.
-function CoreConcepts ({image, title, description}) {
-  return (
-    <li>
-      <img src={image} alt={title}/>
-      <title>{title}</title>
-      <description> {description} </description>
-    </li>
-  );
-}
-
-function Header() {
-  const randomDescription = reactDescriptions[getRandomInt(2)];
-
-  return (
-    <header>
-        <img src={ reactImg } alt="Stylized atom" />
-        <h1>React Essentials</h1>
-        <p>
-          {/* Using dynamic content render. */}
-          { randomDescription } React concepts you will need for almost any app you are
-          going to build!
-        </p>
-      </header>
-  );
-}
+import Header from './components/Header.jsx';
+import CoreConcepts from "./components/CoreConcepts.jsx";
 
 function App() {
   return (
