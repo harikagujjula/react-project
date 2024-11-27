@@ -7,12 +7,13 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * (max + 1));
 }
 
-function CoreConcepts (props) {
+// Making use of Object destructuring for parameter props.
+function CoreConcepts ({image, title, description}) {
   return (
     <li>
-      <img src={props.image} alt={props.title}/>
-      <title>{props.title}</title>
-      <description> {props.description} </description>
+      <img src={image} alt={title}/>
+      <title>{title}</title>
+      <description> {description} </description>
     </li>
   );
 }
@@ -41,7 +42,8 @@ function App() {
         <section id="core-concepts">
         <h2>Core Concepts</h2>
         <ul>
-          <CoreConcepts title={CORE_CONCEPTS[0].title} description={CORE_CONCEPTS[0].description} image={CORE_CONCEPTS[0].image}/>
+          {/* Short notation of passing the object keys as parameter. */}
+          <CoreConcepts {...CORE_CONCEPTS[0] } />
           <CoreConcepts title={CORE_CONCEPTS[1].title} description={CORE_CONCEPTS[1].description} image={CORE_CONCEPTS[1].image}/>
           <CoreConcepts title={CORE_CONCEPTS[2].title} description={CORE_CONCEPTS[2].description} image={CORE_CONCEPTS[2].image}/>
           <CoreConcepts title={CORE_CONCEPTS[3].title} description={CORE_CONCEPTS[3].description} image={CORE_CONCEPTS[3].image}/>
