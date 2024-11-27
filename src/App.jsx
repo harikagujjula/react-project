@@ -5,7 +5,7 @@ import TabButton from "./components/CoreConcepts/TabButton.jsx";
 
 function App() {
   function handleSelect(selectedButton) {
-    console.log('hello world!');
+    console.log(selectedButton);
   }
   
   return (
@@ -25,11 +25,14 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            {/* // Anything betwen the components is accessed via props children. */}
-            <TabButton onSelect={handleSelect}>Components</TabButton>
-            <TabButton onSelect={handleSelect}>JSX</TabButton>
-            <TabButton onSelect={handleSelect}>Props</TabButton>
-            <TabButton onSelect={handleSelect}>State</TabButton>
+            {/* How do we know which button is clicked. So for that we have to
+             send custom arguments to the function to identify the same using arrow functions. */}
+            <TabButton onSelect={() => handleSelect('components')}>Components</TabButton>
+            {/*             OR 
+            <TabButton onSelect={function () {handleSelect('components')}}>Components</TabButton> */}
+            <TabButton onSelect={() => handleSelect('JSX')}>JSX</TabButton>
+            <TabButton onSelect={() => handleSelect('Props')}>Props</TabButton>
+            <TabButton onSelect={() => handleSelect('State')}>State</TabButton>
           </menu>
 
         </section>
