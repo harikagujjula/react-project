@@ -3,15 +3,12 @@
 // }
 
 // Anything betwen the components is accessed via props children.
-export default function TabButton({children}) {
-  function handleClick() {
-    console.log('hello world!');
-  }
+export default function TabButton({children, onSelect}) {
 
   return (
     <li>
       {/* Make sure we do not use () while calling the function to prevent execution. */}
-    <button onClick={handleClick}>{children}</button>
+    <button onClick={onSelect}>{children}</button>
     </li>
   );
 }

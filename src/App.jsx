@@ -4,6 +4,10 @@ import CoreConcepts from "./components/CoreConcepts/CoreConcepts.jsx";
 import TabButton from "./components/CoreConcepts/TabButton.jsx";
 
 function App() {
+  function handleSelect(selectedButton) {
+    console.log('hello world!');
+  }
+  
   return (
     <div>
       <Header />
@@ -22,12 +26,12 @@ function App() {
           <h2>Examples</h2>
           <menu>
             {/* // Anything betwen the components is accessed via props children. */}
-            <TabButton>Components</TabButton>
-            <TabButton>JSX</TabButton>
-            <TabButton>Props</TabButton>
-            <TabButton>State</TabButton>
+            <TabButton onSelect={handleSelect}>Components</TabButton>
+            <TabButton onSelect={handleSelect}>JSX</TabButton>
+            <TabButton onSelect={handleSelect}>Props</TabButton>
+            <TabButton onSelect={handleSelect}>State</TabButton>
           </menu>
-          
+
         </section>
       </main>
     </div>
