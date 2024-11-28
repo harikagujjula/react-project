@@ -4,7 +4,11 @@ import CoreConcepts from "./components/CoreConcepts/CoreConcepts.jsx";
 import TabButton from "./components/CoreConcepts/TabButton.jsx";
 
 function App() {
+  let tabContent = "Please selet a button";
   function handleSelect(selectedButton) {
+    // The updated value will not be shown in the UI, but the console.log shows selectedButton is being updated.
+    // Any component will be executed only once. And This is where state comes to tell React to execute the component multiple times as needed.
+    tabContent = selectedButton;
     console.log(selectedButton);
   }
   
@@ -34,7 +38,9 @@ function App() {
             <TabButton onSelect={() => handleSelect('Props')}>Props</TabButton>
             <TabButton onSelect={() => handleSelect('State')}>State</TabButton>
           </menu>
-
+        </section>
+        <section>
+          {tabContent}
         </section>
       </main>
     </div>
