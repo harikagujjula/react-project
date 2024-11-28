@@ -41,12 +41,11 @@ function App() {
         <section id="core-concepts">
         <h2>Core Concepts</h2>
         <ul>
-          {/* Short notation of passing the object keys as parameter. */}
-          <CoreConcepts {...CORE_CONCEPTS[0] } />
-          <CoreConcepts title={CORE_CONCEPTS[1].title} description={CORE_CONCEPTS[1].description} image={CORE_CONCEPTS[1].image}/>
-          <CoreConcepts title={CORE_CONCEPTS[2].title} description={CORE_CONCEPTS[2].description} image={CORE_CONCEPTS[2].image}/>
-          <CoreConcepts title={CORE_CONCEPTS[3].title} description={CORE_CONCEPTS[3].description} image={CORE_CONCEPTS[3].image}/>
-        </ul>
+          {/* Transforming the arrays of objects to jsx code to render the list dyanamically. */}
+          {CORE_CONCEPTS.map((conceptItem) => (
+            <CoreConcepts key={conceptItem.title} {...conceptItem} />
+          ))}
+          </ul>
         </section>
         <section id="examples">
           <h2>Examples</h2>
