@@ -62,34 +62,6 @@ function App() {
           </menu>
         </section>
         <section>
-            {/* Rendering content conditionally only if selectedTopic value exists with ternary operator. */}
-            {selectedTopic ? (
-            <div id="tab-content">
-              <h3>{EXAMPLES[selectedTopic].title}</h3>
-              <p>{EXAMPLES[selectedTopic].description}</p>
-              <pre>
-                <code>
-                  {EXAMPLES[selectedTopic].code}
-                </code>
-              </pre>
-            </div>
-          ) : "Please select a button" }
-
-          {/* Rendering same content conditionally only if selectedTopic value exists with && */}
-          {!selectedTopic && <p>Please select a topic.</p>}
-
-          {selectedTopic && (
-            <div id="tab-content">
-              <h3>{EXAMPLES[selectedTopic].title}</h3>
-              <p>{EXAMPLES[selectedTopic].description}</p>
-              <pre>
-                <code>
-                  {EXAMPLES[selectedTopic].code}
-                </code>
-              </pre>
-            </div>
-          )}
-
           {/*  Rendering same content conditionally only if selectedTopic value exists with a variable. */}
           {tabContent}
         </section>
