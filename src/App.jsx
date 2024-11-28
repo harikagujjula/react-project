@@ -3,17 +3,35 @@ import Header from './components/Header/Header.jsx';
 import CoreConcepts from "./components/CoreConcepts/CoreConcepts.jsx";
 import TabButton from "./components/CoreConcepts/TabButton.jsx";
 import { useState } from "react";
+import { EXAMPLES } from "./data";
 
 function App() {
   // Using useState React hook, which manages the state of a specific component.
   // To be called at top level(not inside inner functions).
   // Always Returns data, function to update the state.
-  const [ selectedTopic, setSelectedTopic ] = useState("Please select a button");
+  // with null as default value.
+  const [ selectedTopic, setSelectedTopic ] = useState();
 
   function handleSelect(selectedButton) {
     // Calling the update function.
     setSelectedTopic(selectedButton);
-    console.log(selectedButton);
+  }
+
+  // Rendering output Using a variable.
+  let tabContent = <p>Please select a topic</p>
+
+  if (selectedTopic) {
+    tabContent = (
+    <div id="tab-content">
+      <h3>{EXAMPLES[selectedTopic].title}</h3>
+      <p>{EXAMPLES[selectedTopic].description}</p>
+      <pre>
+        <code>
+          {EXAMPLES[selectedTopic].code}
+        </code>
+      </pre>
+    </div>
+    );
   }
   
   return (
@@ -38,13 +56,42 @@ function App() {
             <TabButton onSelect={() => handleSelect('components')}>Components</TabButton>
             {/*             OR 
             <TabButton onSelect={function () {handleSelect('components')}}>Components</TabButton> */}
-            <TabButton onSelect={() => handleSelect('JSX')}>JSX</TabButton>
-            <TabButton onSelect={() => handleSelect('Props')}>Props</TabButton>
-            <TabButton onSelect={() => handleSelect('State')}>State</TabButton>
+            <TabButton onSelect={() => handleSelect('jsx')}>JSX</TabButton>
+            <TabButton onSelect={() => handleSelect('props')}>Props</TabButton>
+            <TabButton onSelect={() => handleSelect('state')}>State</TabButton>
           </menu>
         </section>
         <section>
-          {selectedTopic}
+            {/* Rendering content conditionally only if selectedTopic value exists with ternary operator. */}
+            {selectedTopic ? (
+            <div id="tab-content">
+              <h3>{EXAMPLES[selectedTopic].title}</h3>
+              <p>{EXAMPLES[selectedTopic].description}</p>
+              <pre>
+                <code>
+                  {EXAMPLES[selectedTopic].code}
+                </code>
+              </pre>
+            </div>
+          ) : "Please select a button" }
+
+          {/* Rendering same content conditionally only if selectedTopic value exists with && */}
+          {!selectedTopic && <p>Please select a topic.</p>}
+
+          {selectedTopic && (
+            <div id="tab-content">
+              <h3>{EXAMPLES[selectedTopic].title}</h3>
+              <p>{EXAMPLES[selectedTopic].description}</p>
+              <pre>
+                <code>
+                  {EXAMPLES[selectedTopic].code}
+                </code>
+              </pre>
+            </div>
+          )}
+
+          {/*  Rendering same content conditionally only if selectedTopic value exists with a variable. */}
+          {tabContent}
         </section>
       </main>
     </div>
