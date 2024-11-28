@@ -2,13 +2,17 @@ import { CORE_CONCEPTS } from "./data";
 import Header from './components/Header/Header.jsx';
 import CoreConcepts from "./components/CoreConcepts/CoreConcepts.jsx";
 import TabButton from "./components/CoreConcepts/TabButton.jsx";
+import { useState } from "react";
 
 function App() {
-  let tabContent = "Please selet a button";
+  // Using useState React hook, which manages the state of a specific component.
+  // To be called at top level(not inside inner functions).
+  // Always Returns data, function to update the state.
+  const [ selectedTopic, setSelectedTopic ] = useState("Please select a button");
+
   function handleSelect(selectedButton) {
-    // The updated value will not be shown in the UI, but the console.log shows selectedButton is being updated.
-    // Any component will be executed only once. And This is where state comes to tell React to execute the component multiple times as needed.
-    tabContent = selectedButton;
+    // Calling the update function.
+    setSelectedTopic(selectedButton);
     console.log(selectedButton);
   }
   
@@ -40,7 +44,7 @@ function App() {
           </menu>
         </section>
         <section>
-          {tabContent}
+          {selectedTopic}
         </section>
       </main>
     </div>
