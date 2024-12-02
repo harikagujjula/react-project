@@ -38,7 +38,15 @@ export default function Examples() {
 
   return (
     <Section title="Examples" id="examples">
-      <Tabs buttons={
+      {/* To define a component props using custom component, use uppercase */}
+      {/*       <Tabs ButtonsContainer="menu"> ...... </Tabs> */}
+
+      {/* For identifiers/values, if using built-in element like div, ul, menu 
+      we pass it as a string like above, but for custom element like Section etc, we pass it as JSX. */}
+      {/*       <Tabs ButtonsContainer={Section}> ...... </Tabs> */}
+
+      {/* To define a component props using built-in component, use lowecase */}
+      <Tabs ButtonsContainer="menu" buttons={
         <>
         {/* Forwarding the props onClick of a button, instead using onSelect. */}
         <TabButton isSelected={selectedTopic === 'components'} onClick={() => handleSelect('components')}>Components</TabButton>
