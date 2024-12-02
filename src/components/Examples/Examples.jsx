@@ -2,6 +2,7 @@ import { useState } from "react";
 import { EXAMPLES } from "./../../data";
 import TabButton from "../TabButton/TabButton";
 import Section from "../Section/Section";
+import Tabs from "../Tabs/Tabs";
 
 export default function Examples() {
   // Using useState React hook, which manages the state of a specific component.
@@ -36,9 +37,9 @@ export default function Examples() {
   }
 
   return (
-    <>
     <Section title="Examples" id="examples">
-      <menu>
+      <Tabs buttons={
+        <>
         {/* Forwarding the props onClick of a button, instead using onSelect. */}
         <TabButton isSelected={selectedTopic === 'components'} onClick={() => handleSelect('components')}>Components</TabButton>
         {/*             OR 
@@ -46,12 +47,11 @@ export default function Examples() {
         <TabButton isSelected={selectedTopic === 'jsx'} onClick={() => handleSelect('jsx')}>JSX</TabButton>
         <TabButton isSelected={selectedTopic === 'props'} onClick={() => handleSelect('props')}>Props</TabButton>
         <TabButton isSelected={selectedTopic === 'state'} onClick={() => handleSelect('state')}>State</TabButton>
-      </menu>
+        </>
+      }
+      >
+        {tabContent}
+      </Tabs>
     </Section>
-    <section>
-      {/*  Rendering same content conditionally only if selectedTopic value exists with a variable. */}
-      {tabContent}
-    </section>
-    </>
   );
 }
