@@ -46,7 +46,7 @@ export default function Examples() {
       {/*       <Tabs ButtonsContainer={Section}> ...... </Tabs> */}
 
       {/* To define a component props using built-in component, use lowecase */}
-      <Tabs ButtonsContainer="menu" buttons={
+      <Tabs buttons={
         <>
         {/* Forwarding the props onClick of a button, instead using onSelect. */}
         <TabButton isSelected={selectedTopic === 'components'} onClick={() => handleSelect('components')}>Components</TabButton>
