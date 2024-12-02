@@ -3,12 +3,12 @@
 // }
 
 // Anything betwen the components is accessed via props children.
-export default function TabButton({children, onSelect, isSelected}) {
+export default function TabButton({children, isSelected, ...props}) {
 
   return (
     <li>
-      {/* Make sure we do not use () while calling the function to prevent execution. */}
-    <button className={isSelected ? 'active' : undefined} onClick={onSelect}>{children}</button>
+    {/* Fast forwarding the props which also includes onClick button listener. */}
+    <button className={isSelected ? 'active' : undefined} {...props}>{children}</button>
     </li>
   );
 }
