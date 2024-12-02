@@ -1,6 +1,7 @@
 import Header from './components/Header/Header.jsx';
 import CoreConcepts from "./components/CoreConcepts/CoreConcepts.jsx";
 import Examples from './components/Examples/Examples.jsx';
+import TicTacToe from './components/TicTacToe/TicTacToe.jsx';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <main>
         <CoreConcepts />
         <Examples />
+        <TicTacToe />
       </main>
     </div>
   );
