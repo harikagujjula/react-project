@@ -5,12 +5,27 @@ import GameBoard from './GameBoard';
 import { useState } from 'react';
 import Log from './Log';
 
+// Using a Function to (reuse) derive Active player based on gameTurns state/prevTurns whatever applicable.
+function deriveActivePlayer(gameTurns) {
+  let currentPlayer = 'X';
+
+  if (gameTurns.length > 0 && gameTurns[0].player == 'X')  {
+    currentPlayer = 'O';
+  }
+
+  return currentPlayer;
+}
+
 export default function TicTacToe() {
-  const [activePlayer, setActivePlayer] = useState('X');
+  // We can still get this Active player from Turns state and we should not have one more state for just updatig the UI.
+  // const [activePlayer, setActivePlayer] = useState('X');
 
   // State to manage the Turns for Logs component. But since we already have a 
   // state to manage the button clicks, we can make use only one rather than using multiple states.
   const [gameTurns, setGameTurns] = useState([]);
+
+  // Deriviing active player initially using gameTurns state.
+  const activePlayer = deriveActivePlayer(gameTurns);
 
   // Since we want the active player all the time, so that we could highlight 
   // the active player and also print X or O in the square selected, i.e we 
@@ -20,16 +35,12 @@ export default function TicTacToe() {
   // can be managed in the ancestor component(TicTacToe).
   function handleSelectSquare(rowIndex, colIndex) {
 
-    setActivePlayer((currentActivePlayer) => (currentActivePlayer === 'X' ? 'O' : 'X'));
+    // setActivePlayer((currentActivePlayer) => (currentActivePlayer === 'X' ? 'O' : 'X'));
 
     setGameTurns((prevTurns) => {
-      // Here we cannot use activePlayer as that is from different state. 
-      // Rather we could instead make use of another variable that is 
-      // derived from Turns state.
-      let curPlayer = 'X';
-      if (prevTurns.length > 0 && prevTurns[0].player ==='X') {
-        curPlayer = 'O';
-      }
+      // Deriviing active player initially using prevTurns.
+      const curPlayer = deriveActivePlayer(prevTurns);
+      
       const updatedTurns = [
         {square: {row: rowIndex, col: colIndex}, player: curPlayer},
         ...prevTurns,
