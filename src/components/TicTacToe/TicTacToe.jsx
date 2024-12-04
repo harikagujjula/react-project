@@ -54,7 +54,7 @@ export default function TicTacToe() {
         {/* Passing the state to GameBoard (to use the active player). */}
         <GameBoard onSelectSquare={handleSelectSquare} turns={gameTurns}/>
       </div>
-      <Log/>
+      <Log turns={gameTurns}/>
     </section>
   );
 }
