@@ -17,9 +17,6 @@ function deriveActivePlayer(gameTurns) {
 }
 
 export default function TicTacToe() {
-  // We can still get this Active player from Turns state and we should not have one more state for just updatig the UI.
-  // const [activePlayer, setActivePlayer] = useState('X');
-
   // State to manage the Turns for Logs component. But since we already have a 
   // state to manage the button clicks, we can make use only one rather than using multiple states.
   const [gameTurns, setGameTurns] = useState([]);
@@ -34,9 +31,6 @@ export default function TicTacToe() {
   // i.e state value that's needed by both child components(Player, GameBoard) 
   // can be managed in the ancestor component(TicTacToe).
   function handleSelectSquare(rowIndex, colIndex) {
-
-    // setActivePlayer((currentActivePlayer) => (currentActivePlayer === 'X' ? 'O' : 'X'));
-
     setGameTurns((prevTurns) => {
       // Deriviing active player initially using prevTurns.
       const curPlayer = deriveActivePlayer(prevTurns);
