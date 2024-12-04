@@ -1,6 +1,7 @@
 import gameLogo from '../../assets/game-logo.png';
 import './TicTacToe.css';
 import Player from './Player';
+import GameBoard from './GameBoard';
 
 export default function TicTacToe() {
   return (
@@ -14,7 +15,7 @@ export default function TicTacToe() {
           <Player initialName="Player 2"symbol="O"/>
         </ol>
         {/* Game borad */}
-        Game board
+        <GameBoard />
       </div>
       LOG
     </section>
