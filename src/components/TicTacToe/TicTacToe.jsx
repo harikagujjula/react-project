@@ -10,7 +10,7 @@ export default function TicTacToe() {
 
   // State to manage the Turns for Logs component. But since we already have a 
   // state to manage the button clicks, we can make use only one rather than using multiple states.
-  const [gameTurns, setGameTurns] = useState();
+  const [gameTurns, setGameTurns] = useState([]);
 
   // Since we want the active player all the time, so that we could highlight 
   // the active player and also print X or O in the square selected, i.e we 
@@ -20,7 +20,7 @@ export default function TicTacToe() {
   // can be managed in the ancestor component(TicTacToe).
   function handleSelectSquare(rowIndex, colIndex) {
 
-    setActivePlayer((currentActivePlayer) => currentActivePlayer==='X' ? 'O' : 'X');
+    setActivePlayer((currentActivePlayer) => (currentActivePlayer === 'X' ? 'O' : 'X'));
 
     setGameTurns((prevTurns) => {
       // Here we cannot use activePlayer as that is from different state. 
@@ -31,8 +31,9 @@ export default function TicTacToe() {
         curPlayer = 'O';
       }
       const updatedTurns = [
-        {square: {row: rowIndex, col: colIndex, player: curPlayer}},
-        ...prevTurns];
+        {square: {row: rowIndex, col: colIndex}, player: curPlayer},
+        ...prevTurns,
+      ];
 
         // Now return the updated Turns as a new value to the game turns state.
         return updatedTurns;
@@ -51,7 +52,7 @@ export default function TicTacToe() {
         </ol>
         {/* Game borad */}
         {/* Passing the state to GameBoard (to use the active player). */}
-        <GameBoard onSelectSquare={handleSelectSquare} activePlayerSymbol={activePlayer}/>
+        <GameBoard onSelectSquare={handleSelectSquare} turns={gameTurns}/>
       </div>
       <Log/>
     </section>
