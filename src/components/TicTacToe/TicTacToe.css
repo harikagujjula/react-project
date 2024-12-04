@@ -16,6 +16,7 @@
   object-fit: contain;
   margin: 3rem auto 1rem auto;
   filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.4));
+  -webkit-filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.4));
 }
 #game-container {
   max-width: 45rem;
@@ -156,7 +157,7 @@ ol {
   color: #3f3b00;
   font-size: 5rem;
   cursor: pointer;
-  font-family: 'Caprasimo', cursive;
+  font-family: 'Caprasimo', 'cursive';
   padding: 1rem;
 }
 
