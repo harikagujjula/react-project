@@ -1,14 +1,15 @@
-import { useState } from "react";
-
 // To store the current state of the 3*3 in a multi-dimensional array.
 const initialGameBoard = [
   [null, null, null],
   [null, null, null],
   [null, null, null],
 ];
-export default function GameBoard ({ onSelectSquare, activePlayerSymbol }) {
+export default function GameBoard ({ onSelectSquare }) {
+  // Making use of gameTurns state to use with both GameBoard (for managing the gameboard), 
+  // Logs(for printing logs about player turns) component. So, Lifting this 
+  // state up to the parent of Logs, GameBoard i.e TicTacToe.
+  /*
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
-
   // Function to trigger on selecting square with row, col index and the player symbol.
   function handleSelectSquare (rowIndex, colIndex) {
     // prevGameboard state is automatocally made available by React.
@@ -24,7 +25,8 @@ export default function GameBoard ({ onSelectSquare, activePlayerSymbol }) {
 
     // Executing the custom function to capture the state that is defined in TicTacToe to determine activeplayer.
     onSelectSquare();
-  }
+  } 
+  */
 
   return (
     // Creating Gameboard with 3*3 grid array.
@@ -33,7 +35,7 @@ export default function GameBoard ({ onSelectSquare, activePlayerSymbol }) {
         <ol>
           {row.map((playerSymbol, colIndex) => 
             <li key={colIndex}>
-              <button onClick={() => handleSelectSquare(rowIndex, colIndex)}>{playerSymbol}</button>
+              <button onClick={onSelectSquare}>{playerSymbol}</button>
             </li>
           )}
         </ol>

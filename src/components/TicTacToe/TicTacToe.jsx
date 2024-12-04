@@ -3,9 +3,14 @@ import './TicTacToe.css';
 import Player from './Player';
 import GameBoard from './GameBoard';
 import { useState } from 'react';
+import Log from './Log';
 
 export default function TicTacToe() {
   const [activePlayer, setActivePlayer] = useState('X');
+
+  // State to manage the Turns for Logs component. But since we already have a 
+  // state to manage the button clicks, we can make use only one rather than using multiple states.
+  const [gameTurns, setGameTurns] = useState();
 
   // Since we want the active player all the time, so that we could highlight 
   // the active player and also print X or O in the square selected, i.e we 
@@ -13,8 +18,25 @@ export default function TicTacToe() {
   // In this case, we can lift the state up to the nearest ancestor component 
   // i.e state value that's needed by both child components(Player, GameBoard) 
   // can be managed in the ancestor component(TicTacToe).
-  function handleSelectSquare() {
+  function handleSelectSquare(rowIndex, colIndex) {
+
     setActivePlayer((currentActivePlayer) => currentActivePlayer==='X' ? 'O' : 'X');
+
+    setGameTurns((prevTurns) => {
+      // Here we cannot use activePlayer as that is from different state. 
+      // Rather we could instead make use of another variable that is 
+      // derived from Turns state.
+      let curPlayer = 'X';
+      if (prevTurns.length > 0 && prevTurns[0].player ==='X') {
+        curPlayer = 'O';
+      }
+      const updatedTurns = [
+        {square: {row: rowIndex, col: colIndex, player: curPlayer}},
+        ...prevTurns];
+
+        // Now return the updated Turns as a new value to the game turns state.
+        return updatedTurns;
+    });
   }
 
   return (
@@ -31,7 +53,7 @@ export default function TicTacToe() {
         {/* Passing the state to GameBoard (to use the active player). */}
         <GameBoard onSelectSquare={handleSelectSquare} activePlayerSymbol={activePlayer}/>
       </div>
-      LOG
+      <Log/>
     </section>
   );
 }
