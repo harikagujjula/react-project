@@ -5,6 +5,7 @@ import GameBoard from './GameBoard';
 import { useState } from 'react';
 import Log from './Log';
 import { WINNING_COMBINATIONS } from './winning-combinations.js';
+import GameOver from './GameOver.jsx';
 
 // To store the current state of the 3*3 in a multi-dimensional array.
 const initialGameBoard = [
@@ -40,7 +41,8 @@ export default function TicTacToe() {
   
   // So we are deriving the state from Turns(used for logs as well) and using it here to display the gameboard.
   
-  let gameBoard = initialGameBoard;
+  // Deep copying of initial gameboard.
+  let gameBoard = [...initialGameBoard.map(array => [...array])];
   // if turns is empty, then for will not execute.
   for (const turn of gameTurns) {
     // Destructuring the object of turns.
@@ -61,6 +63,10 @@ export default function TicTacToe() {
       winner = firstSquareSymbol;
     }
   }
+
+  //We would have to show gameover even if there is no winner and the match draws.
+  // i.e all the squares are filled and no winner yet.
+  const hasDraw = gameTurns.length === 9 && !winner;
 
   // Since we want the active player all the time, so that we could highlight 
   // the active player and also print X or O in the square selected, i.e we 
@@ -83,6 +89,12 @@ export default function TicTacToe() {
     });
   }
 
+  function handleRestart() {
+    // We are defining/updating gameturns on each turn. Hence On restart, 
+    // Setting the gameturns to empty array and so the rest will be taken care.
+    setGameTurns([]);
+  }
+
   return (
     <section id ="section__tic-tac-toe">
       <img src={gameLogo} alt="Tic-Tac-Toe hand drawn game board"/>
@@ -93,7 +105,7 @@ export default function TicTacToe() {
           <Player initialName="Player 1" symbol="X" isActive={activePlayer === 'X'}/>
           <Player initialName="Player 2" symbol="O" isActive={activePlayer === 'O'}/>
         </ol>
-        {winner && <p>You won {winner}!</p>}
+        {(winner || hasDraw) && <GameOver winner={winner} onRestart={handleRestart}/>}
         {/* Game borad */}
         {/* Passing the state to GameBoard (to use the active player). */}
         <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard}/>
