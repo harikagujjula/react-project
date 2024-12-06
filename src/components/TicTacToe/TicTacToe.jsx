@@ -26,6 +26,15 @@ function deriveActivePlayer(gameTurns) {
 }
 
 export default function TicTacToe() {
+  // Defining a state to get the Player name on each turn. 
+  // Note: We could lift the playerName state from Players component and place 
+  // it in TicTacToe. But on each key stroke while updating the player name, 
+  // The whole TicTacToe component would be re-evaluated which is not necessary. 
+  const [players, setPlayers] = useState({
+    'X': 'Player 1',
+    'O': 'Player 2'
+  });
+
   // State to manage the Turns for Logs component. But since we already have a 
   // state to manage the button clicks, we can make use only one rather than using multiple states.
   const [gameTurns, setGameTurns] = useState([]);
@@ -60,7 +69,8 @@ export default function TicTacToe() {
     const thirdSquareSymbol = gameBoard[combination[2].row][combination[2].column];
 
     if (firstSquareSymbol && firstSquareSymbol === secondSquareSymbol && firstSquareSymbol === thirdSquareSymbol) {
-      winner = firstSquareSymbol;
+      // Fetching the Player name based on the symbol.
+      winner = players[firstSquareSymbol];
     }
   }
 
@@ -95,6 +105,17 @@ export default function TicTacToe() {
     setGameTurns([]);
   }
 
+  function handlePlayerNameChange(symbol, newName) {
+    // Taking the prevPlayers object and on clicking save, only overriding the name 
+    // of the player without changing the other.
+    setPlayers(prevPlayers => {
+      return {
+        ...prevPlayers,
+        [symbol]: newName
+      }
+    });
+  }
+
   return (
     <section id ="section__tic-tac-toe">
       <img src={gameLogo} alt="Tic-Tac-Toe hand drawn game board"/>
@@ -102,8 +123,8 @@ export default function TicTacToe() {
       <div id="game-container">
         {/* Players name edit */}
         <ol id="players" className='highlight-player'>
-          <Player initialName="Player 1" symbol="X" isActive={activePlayer === 'X'}/>
-          <Player initialName="Player 2" symbol="O" isActive={activePlayer === 'O'}/>
+          <Player initialName="Player 1" symbol="X" isActive={activePlayer === 'X'} onChangeName ={handlePlayerNameChange}/>
+          <Player initialName="Player 2" symbol="O" isActive={activePlayer === 'O'} onChangeName ={handlePlayerNameChange}/>
         </ol>
         {(winner || hasDraw) && <GameOver winner={winner} onRestart={handleRestart}/>}
         {/* Game borad */}

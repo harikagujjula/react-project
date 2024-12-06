@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Player({initialName, symbol, isActive}) {
+export default function Player({initialName, symbol, isActive, onChangeName}) {
   // Declaring state for showing Edit or Save button based on click.
   const [ isEditing, setIsEditing ] = useState(false);
 
@@ -17,6 +17,11 @@ export default function Player({initialName, symbol, isActive}) {
     
     // We are trying to pass the oppisite value of current state value as a function.
     setIsEditing(wasEditing => !wasEditing);
+
+    // Only trigger the onChangeName once Edit is Clicked.
+    if (isEditing) {
+      onChangeName(symbol, playerName);
+    }
   }
 
   // We will have the event object automatically for the listener/function.
