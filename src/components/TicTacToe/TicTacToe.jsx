@@ -7,8 +7,12 @@ import Log from './Log';
 import { WINNING_COMBINATIONS } from './winning-combinations.js';
 import GameOver from './GameOver.jsx';
 
+const PLAYERS = {
+  X: 'Player 1',
+  O: 'Player 2'
+}
 // To store the current state of the 3*3 in a multi-dimensional array.
-const initialGameBoard = [
+const INITIAL_GAME_BOARD = [
   [null, null, null],
   [null, null, null],
   [null, null, null],
@@ -25,23 +29,7 @@ function deriveActivePlayer(gameTurns) {
   return currentPlayer;
 }
 
-export default function TicTacToe() {
-  // Defining a state to get the Player name on each turn. 
-  // Note: We could lift the playerName state from Players component and place 
-  // it in TicTacToe. But on each key stroke while updating the player name, 
-  // The whole TicTacToe component would be re-evaluated which is not necessary. 
-  const [players, setPlayers] = useState({
-    'X': 'Player 1',
-    'O': 'Player 2'
-  });
-
-  // State to manage the Turns for Logs component. But since we already have a 
-  // state to manage the button clicks, we can make use only one rather than using multiple states.
-  const [gameTurns, setGameTurns] = useState([]);
-
-  // Deriviing active player initially using gameTurns state.
-  const activePlayer = deriveActivePlayer(gameTurns);
-
+function deriveGameBoard(gameTurns) {
   // Moved Gameboard to TicTacToe component so that we could also use it to derive Winning of player.
 
   // Making use of gameTurns state to use with both GameBoard (for managing the gameboard), 
@@ -51,7 +39,7 @@ export default function TicTacToe() {
   // So we are deriving the state from Turns(used for logs as well) and using it here to display the gameboard.
   
   // Deep copying of initial gameboard.
-  let gameBoard = [...initialGameBoard.map(array => [...array])];
+  let gameBoard = [...INITIAL_GAME_BOARD.map(array => [...array])];
   // if turns is empty, then for will not execute.
   for (const turn of gameTurns) {
     // Destructuring the object of turns.
@@ -60,7 +48,11 @@ export default function TicTacToe() {
 
     gameBoard[row][col] = player;
   }
+  return gameBoard;
+}
 
+// Putting the code into a function.
+function deriveWinner (gameBoard, players) {
   // Deriving if a player has won or not.
   let winner;
   for (const combination of WINNING_COMBINATIONS) {
@@ -73,6 +65,26 @@ export default function TicTacToe() {
       winner = players[firstSquareSymbol];
     }
   }
+  return winner;
+}
+
+export default function TicTacToe() {
+  // Defining a state to get the Player name on each turn. 
+  // Note: We could lift the playerName state from Players component and place 
+  // it in TicTacToe. But on each key stroke while updating the player name, 
+  // The whole TicTacToe component would be re-evaluated which is not necessary. 
+  const [players, setPlayers] = useState(PLAYERS);
+
+  // State to manage the Turns for Logs component. But since we already have a 
+  // state to manage the button clicks, we can make use only one rather than using multiple states.
+  const [gameTurns, setGameTurns] = useState([]);
+
+  // Deriviing active player initially using gameTurns state.
+  const activePlayer = deriveActivePlayer(gameTurns);
+  // Moving the gameboard logic to a function.
+  const gameBoard = deriveGameBoard(gameTurns);
+  // Moving the winner login to a function.
+  const winner = deriveWinner(gameBoard, players);
 
   //We would have to show gameover even if there is no winner and the match draws.
   // i.e all the squares are filled and no winner yet.
@@ -123,8 +135,8 @@ export default function TicTacToe() {
       <div id="game-container">
         {/* Players name edit */}
         <ol id="players" className='highlight-player'>
-          <Player initialName="Player 1" symbol="X" isActive={activePlayer === 'X'} onChangeName ={handlePlayerNameChange}/>
-          <Player initialName="Player 2" symbol="O" isActive={activePlayer === 'O'} onChangeName ={handlePlayerNameChange}/>
+          <Player initialName={PLAYERS.X} symbol="X" isActive={activePlayer === 'X'} onChangeName ={handlePlayerNameChange}/>
+          <Player initialName={PLAYERS.O} symbol="O" isActive={activePlayer === 'O'} onChangeName ={handlePlayerNameChange}/>
         </ol>
         {(winner || hasDraw) && <GameOver winner={winner} onRestart={handleRestart}/>}
         {/* Game borad */}
