@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { EXAMPLES } from "./../../data";
-import TabButton from "../TabButton/TabButton";
-import Section from "../Section/Section";
-import Tabs from "../Tabs/Tabs";
+import { EXAMPLES } from "./data.js";
+import TabButton from "./TabButton/TabButton";
+import Section from "./Section/Section";
+import Tabs from "./Tabs/Tabs";
 
 export default function Examples() {
   // Using useState React hook, which manages the state of a specific component.
