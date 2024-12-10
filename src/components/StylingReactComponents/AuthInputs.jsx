@@ -1,4 +1,6 @@
 import { useState } from 'react';
+// Making use of css scoped within the component.
+import classes from './AuthInputs.module.css';
 
 export default function AuthInputs() {
   const [enteredEmail, setEnteredEmail] = useState('');
@@ -21,13 +23,13 @@ export default function AuthInputs() {
   const passwordNotValid = submitted && enteredPassword.trim().length < 6;
 
   return (
-    <div id="auth-inputs">
-      <div className="controls">
+    <div id={classes['auth-inputs']}>
+      <div className={classes.controls}>
         <p>
           <label>Email</label>
           <input
             type="email"
-            className={emailNotValid ? 'invalid' : undefined}
+            className={emailNotValid ? classes.invalid : undefined}
             onChange={(event) => handleInputChange('email', event.target.value)}
           />
         </p>
@@ -35,18 +37,20 @@ export default function AuthInputs() {
           <label>Password</label>
           <input
             type="password"
-            className={passwordNotValid ? 'invalid' : undefined}
+            className={passwordNotValid ? classes.invalid : undefined}
             onChange={(event) =>
               handleInputChange('password', event.target.value)
             }
           />
         </p>
       </div>
-      <div className="actions">
-        <button type="button" className="text-button">
+      <div className={classes.actions}>
+        <button type="button" className={classes['text-button']}>
+          {/*     or can use the classname with camelcase below and in css file.  
+          <button type="button" className={classes['textButton']}> */}
           Create a new account
         </button>
-        <button className='button' onClick={handleLogin}>Sign In</button>
+        <button className={classes.button} onClick={handleLogin}>Sign In</button>
       </div>
     </div>
   );
