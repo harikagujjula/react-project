@@ -1,7 +1,15 @@
 export default function ICResult() {
   return (
-    <div id="result">
-      Result Table here.
-    </div>
+    <table id="result">
+      <thead>
+        <th>Year</th>
+        <th>Investment Value</th>
+        <th>Interest(Year)</th>
+        <th>Total Interest</th>
+        <th>Invested Capital</th>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
   )
 }
