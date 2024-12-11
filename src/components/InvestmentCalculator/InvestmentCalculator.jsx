@@ -33,7 +33,7 @@ export default function InvestmentCalculator() {
   }
 
   return (
-    <div id="ic" class="center">
+    <div id="ic" className="center">
       <ICHeader />
       {/* Passing handleUserInputChange function as a value for onChangeInput 
       property and userInput. */}

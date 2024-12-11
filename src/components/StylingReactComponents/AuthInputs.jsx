@@ -1,6 +1,18 @@
 import { useState } from 'react';
 // Making use of css scoped within the component.
 import classes from './AuthInputs.module.css';
+// Making use of Styled components package.
+import { styled } from 'styled-components';
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6b7280;
+`
 
 export default function AuthInputs() {
   const [enteredEmail, setEnteredEmail] = useState('');
@@ -26,7 +38,7 @@ export default function AuthInputs() {
     <div id={classes['auth-inputs']}>
       <div className={classes.controls}>
         <p>
-          <label>Email</label>
+          <Label>Email</Label>
           <input
             type="email"
             className={emailNotValid ? classes.invalid : undefined}
@@ -34,7 +46,7 @@ export default function AuthInputs() {
           />
         </p>
         <p>
-          <label>Password</label>
+          <Label>Password</Label>
           <input
             type="password"
             className={passwordNotValid ? classes.invalid : undefined}
