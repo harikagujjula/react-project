@@ -26,6 +26,7 @@
   outline: none;
 }
 
+/* Moving all this styling for Header to Header component using styled component.
 #styling-react-comps #header {
   display: flex;
   flex-direction: column;
@@ -67,5 +68,4 @@
   #styling-react-comps #header h1 {
     font-size: 2.25rem;
   }
-}
-
+} */
