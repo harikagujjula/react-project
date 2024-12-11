@@ -3,10 +3,10 @@
 ## Concepts Learned
 
 ### Vanilla CSS files
-  * Advantages:
+  - Advantages:
     - Simple CSS code.
     - CSS code is decoupled from JSX and then import as needed.
-  * Disadvantages:
+  - Disadvantages:
     - CSS rules are not scoped with modules, resulting in clashing between 
       components.
 ### Inline styling with Vanila CSS
