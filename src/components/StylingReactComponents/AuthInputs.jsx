@@ -11,7 +11,7 @@ const Label = styled.label`
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #6b7280;
+  color: ${({ invalid }) => invalid ? '#f87171' : '#6b7280'}
 `
 
 export default function AuthInputs() {
@@ -38,7 +38,9 @@ export default function AuthInputs() {
     <div id={classes['auth-inputs']}>
       <div className={classes.controls}>
         <p>
-          <Label className={`label ${emailNotValid ? invalid : ''}`}>Email</Label>
+          {/* Updating the styled component to render dynamic classes based on conditions */}
+          {/* Sending emailNotValid value to invalid prop. */}
+          <Label invalid={emailNotValid}>Email</Label>
           <input
             type="email"
             className={emailNotValid ? classes.invalid : undefined}
@@ -46,7 +48,7 @@ export default function AuthInputs() {
           />
         </p>
         <p>
-          <Label className={`label ${emailNotValid ? invalid : ''}`}>Password</Label>
+          <Label invalid={emailNotValid}>Password</Label>
           <input
             type="password"
             className={passwordNotValid ? classes.invalid : undefined}
