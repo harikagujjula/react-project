@@ -9,7 +9,13 @@
   - Disadvantages:
     - CSS rules are not scoped with modules, resulting in clashing between 
       components.
-### Inline styling with Vanila CSS
+### Inline styling with Vanilla CSS
+  * Include the inline style within {} as an prop(object) (like JSX expression)
+    ```
+      const pColor= color ? 'red' : 'white';
+      <p style={{color: pColor}}>Style me!</p>
+    ```
+    Note: The style prop is an object, hence enclosed with double parenthesis.
   * Advantages:
     - One way of scoping the CSS to a component.
   * Disadvantages:
@@ -79,5 +85,51 @@
     components along with media queries, pseudo-elements(Refer SRCHEADER.jsx).
   * To allow the concept of Resuability, we can build the styled components as 
     seperate components(Refer SRCButton.jsx).
-
-
+### Tailwind CSS(https://tailwindcss.com/docs/guides/vite)
+  * A Framework mainatained by Tailwind Team.
+  * Generally noticed with React (seen on large scale projects).
+  * Can use the pre-defined classes to style the elements with no need of 
+    writing css rules.
+  * Easily customizable for extending existing CSS rules.
+  * Adapts to any design.
+  * Build size is tiny.
+  * Use an TailwindCSS intellisense extension to work with easy dropdown of available classes with IDE.
+  * Installation:
+    - Run the following
+      ```
+      npm install -D tailwindcss postcss autoprefixer
+      npx tailwindcss init -p
+      ```
+    - Update tailwind.config.js
+      ```
+      /** @type {import('tailwindcss').Config} */
+      export default {
+        content: [
+          "./index.html",
+          "./src/**/*.{js,ts,jsx,tsx}",
+        ],
+        theme: {
+          extend: {},
+        },
+        plugins: [],
+      }
+      ```
+    - Add the following directives to CSS(index.css).
+      ```
+      @tailwind base;
+      @tailwind components;
+      @tailwind utilities;
+      ```
+    - Re-run `npm run dev`
+    - Start using the classes.
+      ```
+      <h1 className="text-3xl font-bold underline">
+        Hello world!
+      </h1>
+      ```
+    - To learn more about tailwind, Refer https://tailwindcss.com/docs/installation
+  * Disadvantages:
+    - Elements Ends up with Long list of classes. However, we can create 
+      re-usable components with the Tailwind CSS.
+    - Any style changes needs an editing of jsx code, hence resulting in no 
+      strong seperation between styling and jsx.

@@ -4,6 +4,7 @@ import classes from './AuthInputs.module.css';
 // Making use of Styled components package.
 import { styled } from 'styled-components';
 import Button from './SRCButton';
+// import SRCButtonWithTailWind from './SRCButtonWithTailWind';
 
 const Label = styled.label`
   display: block;
@@ -95,6 +96,9 @@ export default function AuthInputs() {
         </button>
         {/* <button className={classes.button} onClick={handleLogin}>Sign In</button> */}
         <Button onClick={handleLogin}>Sign In</Button>
+        {/* Button built using tailwind css
+         <SRCButtonWithTailWind onClick={handleLogin}>Sign In</SRCButtonWithTailWind> 
+        */}
       </div>
     </div>
   );
