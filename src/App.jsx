@@ -1,23 +1,14 @@
-import Header from './components/Header/Header.jsx';
-import CoreConcepts from "./components/CoreConcepts/CoreConcepts.jsx";
-import Examples from './components/Examples/Examples.jsx';
-import TicTacToe from './components/TicTacToe/TicTacToe.jsx';
-import InvestmentCalcultor from './components/InvestmentCalculator/InvestmentCalculator.jsx';
-import StylingReactComponents from './components/StylingReactComponents/StylingReactComponents.jsx';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import InitialReactConcepts from './components/Navigation/InitialReactConcepts/InitialReactConcepts';
+import RefsAndPortals from './components/Navigation/RefsAndPortals/RefsAndPortals';
+
+const router = createBrowserRouter([
+  {path: '/', element: <InitialReactConcepts />},
+  {path: '/refs-and-portals', element: <RefsAndPortals />}
+]);
 
 function App() {
-  return (
-    <div>
-      <Header />
-      <main>
-        <CoreConcepts />
-        <Examples />
-        <TicTacToe />
-        <InvestmentCalcultor />
-        <StylingReactComponents />
-      </main>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
