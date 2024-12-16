@@ -4,7 +4,7 @@ export default function CoreConcept ({image, title, description}) {
     <li>
       <img src={image} alt={title}/>
       <title>{title}</title>
-      <description> {description} </description>
+      <p> {description} </p>
     </li>
   );
 }
