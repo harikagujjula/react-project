@@ -19,8 +19,26 @@
   avoided as React is Declarative and hence DOM updates will be done by React.
 * Refs can be forwarded between the components.
 * With React version >= 19, ref can be forwarded from one component to other 
-  just like a prop.
+  just like a prop(Ref: ResultModal.jsx).
 * With React version <19, to forward ref, we have to import forwardRef from react,
   wrap the component function(that needs ref as a prop) with forwardRef() and
   send the ref value as second parameter. (For reference: Look at the commented 
   code in ResultModal.jsx).
+* By default, ref can access all the properties and methods of the DOM node / 
+  functional component it is referring to. To expose only those methods we can
+  use useImperativeHandle hook provided by React.
+* useImperativeHandle hook encapsulates the internal logic of a component and 
+  still allows to expose only those methods a parent would need control of to
+  interact with it.
+
+# Portals
+* Portals are like kind of teleports the html code rendered by a component at a 
+  different place in DOM.
+* Provided by createPortal which should be imported from react-dom.
+* To create a Portal, wrap the html code of the component with createPortal().
+* createPortal() accepts 2 arguments, first - the HTML code, second - where the 
+  HTML code should sit in DOM, which should be selected by default browser API 
+  like: document.getElementById("<id of the section>"). (Ref:ResultModal.jsx)
+* Advantages:
+  * Better accessibility
+  * Prevent Styling issues

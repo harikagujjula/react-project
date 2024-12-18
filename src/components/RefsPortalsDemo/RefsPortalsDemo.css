@@ -221,3 +221,54 @@ header p {
     opacity: 0.5;
   }
 }
+
+/*  use-imperative-handle-demo */
+#use-imperative-handle-demo button {
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border: 1px solid white;
+  border-radius: 6px;
+  background: none;
+  color: #e5d9f1;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+#use-imperative-handle-demo form button {
+  background: linear-gradient(#9e21c8, #8b179c);
+  border: none;
+}
+
+#use-imperative-handle-demo form {
+  width: 90%;
+  max-width: 40rem;
+  margin: 3rem auto;
+}
+
+#use-imperative-handle-demo form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+}
+
+#use-imperative-handle-demo form input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e5d9f1;
+  border-radius: 6px;
+  background: none;
+  color: #e5d9f1;
+  font-size: 1rem;
+  font-family: 'Lato', sans-serif;
+  margin-bottom: 1rem;
+}
+
+#use-imperative-handle-demo #actions {
+  text-align: right;
+}
