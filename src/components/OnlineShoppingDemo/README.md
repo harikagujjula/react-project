@@ -25,6 +25,8 @@
     file. And all other files might just act as wrappers.
 * Another Solution - React Context API
   * A feature that makes sharing data across components & component layers a breeze.
+  * Used to share values and state updating function with multiple components 
+    without using props drilling. 
   * Allows to create a context value and wrap around all the components.
   * Context value can be connected to the state and so can get rid of all those 
     props, state updating functions etc.

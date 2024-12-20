@@ -72,6 +72,14 @@ export default function OnlineShoppingDemo() {
     });
   }
 
+  // Passing not just the Readable variables but also to update variables using context.
+  const ctxValue = {
+    items: shoppingCart.items,
+    /* Passing handleAddItemToCart function as a value so that we can get rid of
+     the code where we are sending this function as props and instead access 
+     using context.*/
+    addItemToCart: handleAddItemToCart
+  }
   return (
     /* Wrapping all the components that need the CartContext created with 
     context as a component(Supportted by React >= 19).
@@ -80,9 +88,8 @@ export default function OnlineShoppingDemo() {
     /* Note: While using the wrapper, ensure value is passed as props. The 
     default value set when creating context(in shopping-cart-context.jsx) is 
     only used if a component that was not wrapped by <CartContext> tries to 
-    access the context value.
-    So, we are linking context to the state by just assigning shoppingCart state.*/
-    <CartContext value={shoppingCart}>
+    access the context value.*/
+    <CartContext value={ctxValue}>
       <OSHeader
         cart={shoppingCart}
         onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
