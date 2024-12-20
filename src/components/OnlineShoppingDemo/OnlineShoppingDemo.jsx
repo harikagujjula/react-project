@@ -4,6 +4,7 @@ import Shop from './Shop.jsx';
 import Product from './Product.jsx';
 import './OnlineShoppingDemo.css';
 import { DUMMY_PRODUCTS } from './dummy-products.js';
+import { CartContext } from '../../store/shopping-cart-context.jsx';
 
 /* 
   This setup is similar to Project management where a state is being shared 
@@ -72,7 +73,16 @@ export default function OnlineShoppingDemo() {
   }
 
   return (
-    <>
+    /* Wrapping all the components that need the CartContext created with 
+    context as a component(Supportted by React >= 19).
+    <CartContext.Provider> ....... </CartContext.Provider> should be used for React < 19. */
+    
+    /* Note: While using the wrapper, ensure value is passed as props. The 
+    default value set when creating context(in shopping-cart-context.jsx) is 
+    only used if a component that was not wrapped by <CartContext> tries to 
+    access the context value.
+    So, we are linking context to the state by just assigning shoppingCart state.*/
+    <CartContext value={shoppingCart}>
       <OSHeader
         cart={shoppingCart}
         onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
@@ -88,6 +98,6 @@ export default function OnlineShoppingDemo() {
           </li>
         ))}
       </Shop>
-    </>
+    </CartContext>
   );
 }
