@@ -1,9 +1,15 @@
 import { useState } from 'react';
 import OSHeader from './OSHeader.jsx';
 import Shop from './Shop.jsx';
+import Product from './Product.jsx';
 import './OnlineShoppingDemo.css';
 import { DUMMY_PRODUCTS } from './dummy-products.js';
 
+/* 
+  This setup is similar to Project management where a state is being shared 
+  across components and props being forwarded through other components. 
+  Ex: Props being forwarded from OnlineShoppingDemo > Shop > Product and 
+  similarly OnlineShoppingDemo > OSHeader > CartModal > Cart. */
 export default function OnlineShoppingDemo() {
   const [shoppingCart, setShoppingCart] = useState({
     items: [],
@@ -71,7 +77,17 @@ export default function OnlineShoppingDemo() {
         cart={shoppingCart}
         onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
       />
-      <Shop onAddItemToCart={handleAddItemToCart} />
+      {/*  Component composition: Wrapping a component and rendering using 
+      children. No need of passing props anymore as we moved Product rendering 
+      logic here which needs those props. */}
+      {/* <Shop onAddItemToCart={handleAddItemToCart} /> */}
+      <Shop>
+        {DUMMY_PRODUCTS.map((product) => (
+          <li key={product.id}>
+            <Product {...product} onAddToCart={handleAddItemToCart} />
+          </li>
+        ))}
+      </Shop>
     </>
   );
 }
