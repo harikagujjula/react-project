@@ -1,11 +1,14 @@
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
 import onlineShoppingLogo from '../../assets/OnlineShopping/online-shopping-logo.png';
 import CartModal from './CartModal.jsx';
+import { CartContext } from '../../store/shopping-cart-context.jsx';
 
-export default function OSHeader({ cart, onUpdateCartItemQuantity }) {
+export default function OSHeader() {
   const modal = useRef();
+  // Consuming Context.
+  const { items } = useContext(CartContext);
 
-  const cartQuantity = cart.items.length;
+  const cartQuantity = items.length;
 
   function handleOpenCartClick() {
     modal.current.open();
@@ -26,8 +29,9 @@ export default function OSHeader({ cart, onUpdateCartItemQuantity }) {
     <>
       <CartModal
         ref={modal}
-        cartItems={cart.items}
-        onUpdateCartItemQuantity={onUpdateCartItemQuantity}
+        // Getting rid of props as we are accessing them using context.
+        // cartItems={cart.items}
+        // onUpdateCartItemQuantity={onUpdateCartItemQuantity}
         title="Your Cart"
         actions={modalActions}
       />

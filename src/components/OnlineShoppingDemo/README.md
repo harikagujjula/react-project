@@ -63,6 +63,11 @@
       * As we know, normally we are not allowed to use React hooks inside if or 
       for loops. But use() hook allows us to even inside loops making it more 
       flexible than useContext().
-    11. Link Context to the State.
+    11. With Older versions of React, you might also encounter consuming of context
+      done by using .Consumer property(similar to .Provider).
+      - The component consuming the context should be wrapped by <DummyContext.Consumer>.
+    12. Link Context to the State.
+    13. When a context value changes, the component that accesses the context 
+    value will get re-executed.
 
 

@@ -7,7 +7,9 @@ import { createContext } from "react";
 export const CartContext = createContext({
   // To store shopping cart items.
   items: [],
+  // Property that will be used to access adding item to cart function. Empty dummy function for now.
+  addItemToCart: () => {},
   // Property that will be used to access cart update function. Empty dummy function for now.
-  addItemToCart: () => {}
+  updateItemQuantity: () => {}
 });
 

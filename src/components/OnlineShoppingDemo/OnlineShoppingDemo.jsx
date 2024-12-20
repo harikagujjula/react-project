@@ -78,7 +78,8 @@ export default function OnlineShoppingDemo() {
     /* Passing handleAddItemToCart function as a value so that we can get rid of
      the code where we are sending this function as props and instead access 
      using context.*/
-    addItemToCart: handleAddItemToCart
+    addItemToCart: handleAddItemToCart,
+    updateItemQuantity: handleUpdateCartItemQuantity
   }
   return (
     /* Wrapping all the components that need the CartContext created with 
@@ -90,10 +91,7 @@ export default function OnlineShoppingDemo() {
     only used if a component that was not wrapped by <CartContext> tries to 
     access the context value.*/
     <CartContext value={ctxValue}>
-      <OSHeader
-        cart={shoppingCart}
-        onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
-      />
+      <OSHeader />
       {/*  Component composition: Wrapping a component and rendering using 
       children. No need of passing props anymore as we moved Product rendering 
       logic here which needs those props. */}
@@ -101,7 +99,7 @@ export default function OnlineShoppingDemo() {
       <Shop>
         {DUMMY_PRODUCTS.map((product) => (
           <li key={product.id}>
-            <Product {...product} onAddToCart={handleAddItemToCart} />
+            <Product {...product} />
           </li>
         ))}
       </Shop>
