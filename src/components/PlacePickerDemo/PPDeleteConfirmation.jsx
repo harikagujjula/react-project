@@ -1,25 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import ProgressBar from "./ProgressBar";
 
 const TIMER = 3000;
 export default function PPDeleteConfirmation({ onConfirm, onCancel }) {
-  // Setting a state to keep track of the remaining time.
-  const [remainingTime, setRemainingTime] = useState(TIMER);
+  // Moved Progress bar related code to a separate component ProgressBar.jsx.
 
-  // Wrapping the setInterval() inside useEffect() to avoid infinite loop.
-  useEffect(() => {
-    // Defines a browser function that will be executed for every given interval.
-    const interval = setInterval(() => {
-      console.log('Interval');
-      // Updating the Remaining time by subtracting 10ms.
-      setRemainingTime((prevTime) => prevTime - 10);
-    }, 10);
-
-    // Also stopping the interval once modal is closed or interval reaches max.
-    return () => {
-      // Browser function to clear the interval.
-      clearInterval(interval);
-    }
-  }, []);
   /* We are trying to set a timer to simulate a delay for the user to confirm
   the deletion. But once the timer is set, it still runs in the background and there
   is no way to quit the timer. useEffect() also provides Cleanup function to
@@ -71,8 +56,8 @@ export default function PPDeleteConfirmation({ onConfirm, onCancel }) {
           Yes
         </button>
       </div>
-      {/* Built in progress element. */}
-      <progress value={remainingTime} max={TIMER}/>
+      {/* Moving ProgressBar to a separate component. */}
+      <ProgressBar timer={TIMER} />
     </div>
   );
 }
