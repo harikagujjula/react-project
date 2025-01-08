@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import PPPlaces from './PPPlaces.jsx';
 import { AVAILABLE_PLACES } from './placePickerData.js';
@@ -98,17 +98,28 @@ export default function PlacePickerDemo() {
     }
   }
 
-  function handleRemovePlace() {
-    setPickedPlaces((prevPickedPlaces) =>
-      prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
-    );
-    // modal.current.close();
-    setModalIsOpen(false);
+  /* This handleRemovePlace() is passed as dependency to useEffect() in
+  PPDeleteConfirmation and hence would be recreated everytime as in javascript
+  functions are objects and they are never equal, ecenthough it is the same code.
+  So we are using useCallback() to ensure the wrapped function is not
+  re-created, rather stores the function internally and re-use it each time the
+  component is re-executed.
 
-    const storedIds = localStorage.getItem('selectedPlaces') || [];
-    // selectedPlace.current is the id of the place that is to be removed that is clicked.
-    localStorage.setItem("selectedPlaces", JSON.stringify(storedIds.filter(id => id !== selectedPlace.current)));
-  }
+  Accepts 2 arguments: the function and array of dependencies. */
+  const handleRemovePlace = useCallback(
+    function handleRemovePlace() {
+      setPickedPlaces((prevPickedPlaces) =>
+        prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
+      );
+      // modal.current.close();
+      setModalIsOpen(false);
+
+      const storedIds = localStorage.getItem('selectedPlaces') || [];
+      // selectedPlace.current is the id of the place that is to be removed that is clicked.
+      localStorage.setItem("selectedPlaces", JSON.stringify(storedIds.filter(id => id !== selectedPlace.current)));
+      // Similar to useEffect, Dependency is a prop or state that is used inside
+      //  the useCallback() hook. Here there are none.
+    }, []);
 
   return (
     <>

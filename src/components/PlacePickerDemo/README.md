@@ -24,3 +24,21 @@
     - Not all side effects require usage of useEffect(). It is not a good practice to
   always use useEffect() as this adds an extra execution cycle after the
   component execution.
+  * Also provides cleanup function
+    - By returning the function from inside the useEffect().
+    - Clean up function will be triggered right before the next execution of
+      useEffect() hook or when the component is dismounted/removed from the DOM.
+* ## useCallback()
+  * Hook provided by React that should be used when a function is passed as
+  dependency to the useEffect().
+  * In javascript, functions are objects. Two functions with same code inside
+  are never equal. So, when a function is passed as dependency to useEffect(),
+  the useEffect() executes everytime as it assumes dependencies changed
+  eventhough its the same function with no change.
+  * useCallback() ensures the wrapped function is not re-created, rather stores
+  the function internally and re-use it each time the component is re-executed.
+  * Accepts 2 arguments.
+    1. The function (thats passed as dependency to the useEffect())
+    2. Array of dependencies (state or prop that are needed by the function
+    wrapped by useCallback()).
+  
