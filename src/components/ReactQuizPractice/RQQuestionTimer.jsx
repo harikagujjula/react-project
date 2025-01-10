@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 /**
  * Returns Progress bar for the question timer.
  */
-export default function RQQuestionTimer( {timeout, onTimeOut} ) {
+export default function RQQuestionTimer( {timeout, onTimeOut, mode} ) {
   const [remainingTime, setRemainingTime] = useState(timeout);
 
   // Using useEffect() to prevent inifinte loop as this might execute everytime
@@ -33,5 +33,5 @@ export default function RQQuestionTimer( {timeout, onTimeOut} ) {
     }
   }, []);
 
-  return <progress id="question-time" max={timeout} value={remainingTime}/>;
+  return <progress id="question-time" max={timeout} value={remainingTime} className={mode}/>;
 }
