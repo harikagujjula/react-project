@@ -13,7 +13,7 @@
   also causes Header and Counter components to re-execute, resulting in all the
   other child components to be re-executed as well.
   - To prevent this un-necessary re-execution of components, we can use memo.
-* # Using memo - One way of preventing unnecessary renders.
+* # Using memo - One way of preventing unnecessary component exections.
   - Wrap a component that is at a high level using memo. In our case the best
     component to use memo is Counter as BehindTheScenesDemo has an internal
     state change.
@@ -25,3 +25,7 @@
     execution there will also block all child component executions.
   - Don't use it on components where props will change frequently, which costs
     performance.
+* # Using better way of component composition - Another way of preventing unnecessary component exections.
+  - If possible, Move the code in a component that could be seperated and is
+    causing whole code to re-execute to a seperate component(ConfigureCounter.jsx).
+
