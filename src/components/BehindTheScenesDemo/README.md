@@ -28,4 +28,11 @@
 * # Using better way of component composition - Another way of preventing unnecessary component exections.
   - If possible, Move the code in a component that could be seperated and is
     causing whole code to re-execute to a seperate component(ConfigureCounter.jsx).
+* # Using useCallback in conjuction with memo.
+  - Sometimes, the functions could be passed as props and as we learnt functions
+    in javascript are objects and so are treated new everytime eventhough the code
+    inside is same.
+  - Hence any component which has functions passed as props as values, could
+    still be seen re-executed even though we wrap the component with memo.
+  - To prevent this, wrap such functions with useCallback() hook.
 

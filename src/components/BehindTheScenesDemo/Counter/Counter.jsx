@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 
 import IconButton from '../UI/IconButton.jsx';
 import MinusIcon from '../UI/Icons/MinusIcon.jsx';
@@ -33,13 +33,14 @@ const Counter = memo(function Counter({ initialCount }) {
 
   const [counter, setCounter] = useState(initialCount);
 
-  function handleDecrement() {
+  const handleDecrement = useCallback(function handleDecrement() {
     setCounter((prevCounter) => prevCounter - 1);
-  }
+    // No dependencies needed as we are just using state updating function here.
+  }, []);
 
-  function handleIncrement() {
+  const handleIncrement = useCallback(function handleIncrement() {
     setCounter((prevCounter) => prevCounter + 1);
-  }
+  }, []);
 
   return (
     <section className="counter">
@@ -48,6 +49,11 @@ const Counter = memo(function Counter({ initialCount }) {
         <strong>is {initialCountIsPrime ? 'a' : 'not a'}</strong> prime number.
       </p>
       <p>
+        {/* handleDecrement function is being passed as a prop and so can make
+        use of useCallback() to prevent re-execution of the component, as we
+        learnt functions in javascript are objects and eventhough there is no
+        change with code, they are treated as new. This prevents Iconbuttons and
+        Icon to re-execute again on clicking on increment / decrement buttons.*/}
         <IconButton icon={MinusIcon} onClick={handleDecrement}>
           Decrement
         </IconButton>
