@@ -4,16 +4,20 @@ import RefsAndPortals from './components/Navigation/RefsAndPortals/RefsAndPortal
 import OnlineShopping from './components/Navigation/OnlineShopping/OnlineShopping';
 import PlacePicker from './components/Navigation/PlacePicker/Placepicker';
 import ReactQuiz from './components/Navigation/ReactQuiz/ReactQuiz';
+import BehindTheScenes from './components/Navigation/BehindTheScenes/BehindTheScenes';
+import { log } from './components/BehindTheScenesDemo/log';
 
 const router = createBrowserRouter([
   {path: '/', element: <InitialReactConcepts />},
   {path: '/refs-and-portals', element: <RefsAndPortals />},
   {path: '/online-shopping', element: <OnlineShopping />},
   {path: 'place-picker', element: <PlacePicker />},
-  {path: 'react-quiz', element: <ReactQuiz />}
+  {path: 'react-quiz', element: <ReactQuiz />},
+  {path: 'behind-the-scenes', element: <BehindTheScenes />}
 ]);
 
 function App() {
+  log('<App /> rendered');
   return <RouterProvider router={router} />;
 }
 
