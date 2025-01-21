@@ -29,10 +29,34 @@
   - If possible, Move the code in a component that could be seperated and is
     causing whole code to re-execute to a seperate component(ConfigureCounter.jsx).
 * # Using useCallback in conjuction with memo.
+  - Use Case: Use when you want to memoize a callback function so that it doesn’t get
+    recreated on every render.
   - Sometimes, the functions could be passed as props and as we learnt functions
     in javascript are objects and so are treated new everytime eventhough the code
     inside is same.
   - Hence any component which has functions passed as props as values, could
     still be seen re-executed even though we wrap the component with memo.
   - To prevent this, wrap such functions with useCallback() hook.
+  - React stores the function wrapped with useCallback() and returns the same
+    instance of it unless one of the dependencies changes.
+* # Using useMemo() hook - to prevent re-computation of inner functions.
+  - Use Case: Use when you want to memoize the result of a computation so that
+    it doesn’t get re-calculated on every render unless dependencies change.
+  - To be used with inner functions inside component function.
+  - Wrap the function call with useMemo as first argument and their dependencies
+    as second argument.
+  - React stores the result of the computation and skips recomputation unless
+    the dependencies change.
+  - Useful for optimizing expensive calculations.
+  - Note: memo a High-Ordered Component(HOC) to be used with Component functions
+    and useMemo() a react hook, to be used with computations inside a component.
+* State in a component is scoped to that component. So when a component is
+  re-created/re-executed, the state will also get re-created. So, multiple
+  instances of the component has its own isolated state.
+* React tracks state by component type & position (of that component) in the tree.
+  That is the reason, we have to add a key parameter (with a unique index value)
+  to the component while rendering the component, so that the state is
+  attached to a specific component instance. We can also use keys for resetting the components.
+
+
 
