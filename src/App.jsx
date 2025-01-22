@@ -7,6 +7,7 @@ import ReactQuiz from './components/Navigation/ReactQuiz/ReactQuiz';
 import BehindTheScenes from './components/Navigation/BehindTheScenes/BehindTheScenes';
 import { log } from './components/BehindTheScenesDemo/log';
 import ClassBasedComponents from './components/Navigation/ClassBasedComponents/ClassBasedComponents';
+import SendingHttpRequests from './components/Navigation/SendingHttpRequests/SendingHttpRequests';
 
 const router = createBrowserRouter([
   {path: '/', element: <InitialReactConcepts />},
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
   {path: 'react-quiz', element: <ReactQuiz />},
   {path: 'behind-the-scenes', element: <BehindTheScenes />},
   {path: '/class-based-components', element: <ClassBasedComponents />},
+  {path: '', element: <SendingHttpRequests />},
 ]);
 
 function App() {
