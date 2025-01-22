@@ -73,4 +73,4 @@ function SendingHttpRequestsDemo() {
   );
 }
 
-export default App;
+export default SendingHttpRequestsDemo;

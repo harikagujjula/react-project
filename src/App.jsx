@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   {path: 'react-quiz', element: <ReactQuiz />},
   {path: 'behind-the-scenes', element: <BehindTheScenes />},
   {path: '/class-based-components', element: <ClassBasedComponents />},
-  {path: '', element: <SendingHttpRequests />},
+  {path: '/sending-http-requests', element: <SendingHttpRequests />},
 ]);
 
 function App() {
