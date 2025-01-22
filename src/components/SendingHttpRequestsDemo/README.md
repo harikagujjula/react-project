@@ -7,6 +7,8 @@
   * Store the places picked in the backend server by POST request rather than
     using local storage, so that the selected places remain showing up even after
     reloading the page.
+  * Deleting/updating the places from the selected places and notice the data
+    folder getting updated on successfull request.
 # Goal: How to connect to a Database?
   * Initial setup: This folder provides the same Placepicker but this time with data from
     another server accessed through HTTP requests. The backend folder here has the
