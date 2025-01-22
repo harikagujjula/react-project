@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import SHDPlaces from './SHDPlaces.jsx';
 import Error from './Error.jsx';
+import { sortPlacesByDistance } from './SHDloc.js';
+import { fetchAvailablePlaces } from './http.js';
 
 export default function SHDAvailablePlaces({ onSelectPlace }) {
   const [availablePlaces, setAvailablePlaces] = useState([]);
@@ -51,15 +53,17 @@ export default function SHDAvailablePlaces({ onSelectPlace }) {
       // There could be chances of the request sent failing due to network issues or
       //  server crash and receiving no response or error response. So using try/ctach.
       try {
-        const response = await fetch ('http://localhost:3000/places');
-        const resData = await response.json();
-        // Throw error if no response is received.
-        if (!response.ok) {
-          throw new Error(resData.message || 'Failed to fetch places.');
-        }
+        const places = await fetchAvailablePlaces();
 
-        // setAvailablePlaces should be inside try block so that we set only when we have the data.
-        setAvailablePlaces(resData.places);
+        // Fetching users location using browser's geolocation API.
+        navigator.geolocation.getCurrentPosition((position) => {
+          // This again is might take some time to fetch the location, so we are
+          //  using this callback pattern to handle the data.
+
+          const sortedPlaces = sortPlacesByDistance(places, position.coords.latitude, position.coords.longitude);
+          // setAvailablePlaces should be inside try block so that we set only when we have the data.
+          setAvailablePlaces(places);
+        });
       }
       catch (error) {
         setError({message: error.message || 'Failed to fetch places.'});

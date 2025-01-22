@@ -5,6 +5,7 @@ import SHDModal from './SHDModal.jsx';
 import SHDDeleteConfirmation from './SHDDeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
 import SHDAvailablePlaces from './SHDAvailablePlaces.jsx';
+import { updateUserPlaces } from './http.js';
 
 function SendingHttpRequestsDemo() {
   const selectedPlace = useRef();
@@ -22,7 +23,7 @@ function SendingHttpRequestsDemo() {
     setModalIsOpen(false);
   }
 
-  function handleSelectPlace(selectedPlace) {
+  async function handleSelectPlace(selectedPlace) {
     setUserPlaces((prevPickedPlaces) => {
       if (!prevPickedPlaces) {
         prevPickedPlaces = [];
@@ -32,6 +33,22 @@ function SendingHttpRequestsDemo() {
       }
       return [selectedPlace, ...prevPickedPlaces];
     });
+
+    // Saving the selected places back to the server.
+
+    // Note that userPlaces is not still updated with the new place and will
+    //  only be updated after the component re-executes. So we manually add the
+    //  new place along with prevplaces/prev state.
+
+    // Since this operation may take some time to complete, we can use async/await.
+
+    // Also adding try/catch block to handle any errors that might occur during the update request.
+    try {
+      await updateUserPlaces([selectedPlace, ...userPlaces]);
+    }
+    catch (error) {
+      console.error(error);
+    }
   }
 
   const handleRemovePlace = useCallback(async function handleRemovePlace() {

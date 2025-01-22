@@ -1,3 +1,12 @@
+# Tasks
+  * Using the same placepicker setup but now fetching data from another backend
+    server (Node.js) rather than a constant or from a file on same server.
+  * Fetching data via http.
+  * Usage of await/async.
+  * Handling fetch using try/catch, Handling loading of data, Handling error response.
+  * Store the places picked in the backend server by POST request rather than
+    using local storage, so that the selected places remain showing up even after
+    reloading the page.
 # Goal: How to connect to a Database?
   * Initial setup: This folder provides the same Placepicker but this time with data from
     another server accessed through HTTP requests. The backend folder here has the
@@ -31,4 +40,5 @@
       * Show data once response is received.
   * Make use of try/catch blocks as fetching data could sometimes fail and so we
     let the user know about the failure.
+
 
