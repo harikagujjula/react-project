@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import SHDPlaces from './SHDPlaces.jsx';
 
 export default function SHDAvailablePlaces({ onSelectPlace }) {
+  // const [isFetching, setFetching] = useState();
   const [availablePlaces, setAvailablePlaces] = useState([]);
 
   /* Making a Http request and fetching(broswer function) the data from a file
@@ -22,28 +23,44 @@ export default function SHDAvailablePlaces({ onSelectPlace }) {
   which is not allowed for Component functions as thats a restriction implied by React.
   */
 
+  // useEffect(() => {
+  //   const response = fetch ('http://localhost:3000/places').then((response) => {
+  //     // Available methos on response object: json(), text(), blob(), arrayBuffer(), formData().
+  //     // The json() returns another promise, so we can chain another .then() to handle the response.
+  //     return response.json();
+  //   }).then((resData) => {
+  //     // resData is the parsed JSON data from the response.
+  //     // (Check backend > app.js > app.get('/places'.....)
+
+  //     /* Updating the state with the fetched data here might cause an infinite
+  //       loop as component executes > fetches data > updates state as below >
+  //       re-executes component > fetches ... and so an infintite loop.
+
+  //       To fix this, we can use useEffect() hook to execute the fetch only once.*/
+  //     setAvailablePlaces(resData.places);
+  //   });
+  // }, []);
+
   useEffect(() => {
-    const response = fetch ('http://localhost:3000/places').then((response) => {
-      // Available methos on response object: json(), text(), blob(), arrayBuffer(), formData().
-      // The json() returns another promise, so we can chain another .then() to handle the response.
-      return response.json();
-    }).then((resData) => {
-      // resData is the parsed JSON data from the response.
-      // (Check backend > app.js > app.get('/places'.....)
-
-      /* Updating the state with the fetched data here might cause an infinite
-        loop as component executes > fetches data > updates state as below >
-        re-executes component > fetches ... and so an infintite loop.
-
-        To fix this, we can use useEffect() hook to execute the fetch only once.*/
+    // Using async/await syntax to handle promises. Note that componnent
+    // functions cannot be async. So we can define an async function inside.
+    async function fetchPlaces() {
+      const response = await fetch ('http://localhost:3000/places');
+      const resData = await response.json();
       setAvailablePlaces(resData.places);
-    });
+    }
+
+    // Calling fetchPlaces().
+    fetchPlaces();
   }, []);
 
   return (
     <SHDPlaces
       title="Available Places"
       places={availablePlaces}
+      // Adding a Loading text to show while the data is being fetched for good user experience.
+      isLoading={availablePlaces.length === 0}
+      loadingText="Fetching available places..."
       fallbackText="No places available."
       onSelectPlace={onSelectPlace}
     />
