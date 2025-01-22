@@ -6,13 +6,14 @@ import SHDDeleteConfirmation from './SHDDeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
 import SHDAvailablePlaces from './SHDAvailablePlaces.jsx';
 import { updateUserPlaces } from './http.js';
+import Error from './Error.jsx';
 
 function SendingHttpRequestsDemo() {
   const selectedPlace = useRef();
 
   const [userPlaces, setUserPlaces] = useState([]);
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [errorUpdatingPlaces, setErrorUpdatingPlaces] = useState();
 
   function handleStartRemovePlace(place) {
     setModalIsOpen(true);
@@ -47,6 +48,9 @@ function SendingHttpRequestsDemo() {
       await updateUserPlaces([selectedPlace, ...userPlaces]);
     }
     catch (error) {
+      // If the error occurs while PUT request, the userplaces in the UI should also not be updated. So we can revert the state.
+      setUserPlaces(userPlaces);
+      setErrorUpdatingPlaces({message: error.message || 'Failed to update user places.'});
       console.error(error);
     }
   }
@@ -56,11 +60,30 @@ function SendingHttpRequestsDemo() {
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current.id)
     );
 
+    // Sending http request to update the user places after removing the selected place.
+    try {
+      await updateUserPlaces(userPlaces.filter((place) => place.id !== selectedPlace.current.id));
+    }
+    catch (error) {
+      setUserPlaces(userPlaces);
+      setErrorUpdatingPlaces({message: error.message || 'Failed to Delete user places.'});
+      console.error(error);
+    }
+
     setModalIsOpen(false);
-  }, []);
+  }, [userPlaces]);
 
   return (
     <>
+      <SHDModal open={errorUpdatingPlaces} onClose={() => setErrorUpdatingPlaces(null)}>
+        {errorUpdatingPlaces && (
+          <Error
+          title="An error occured"
+          message={errorUpdatingPlaces.message}
+          onConfirm={() => setErrorUpdatingPlaces(null)}
+          />
+        )}
+      </SHDModal>
       <SHDModal open={modalIsOpen} onClose={handleStopRemovePlace}>
         <SHDDeleteConfirmation
           onCancel={handleStopRemovePlace}
