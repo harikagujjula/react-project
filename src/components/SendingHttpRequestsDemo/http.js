@@ -9,6 +9,17 @@ export async function fetchAvailablePlaces() {
   return resData.places;
 }
 
+// Function to fetch the user selected places.
+export async function fetchUserPlaces() {
+  const response = await fetch("http://localhost:3000/user-places");
+  const resData = await response.json();
+  // Throw error if no response is received.
+  if (!response.ok) {
+    throw new Error(resData.message || "Failed to fetch user places.");
+  }
+  return resData.places;
+}
+
 export async function updateUserPlaces(places) {
   const response = await fetch("http://localhost:3000/user-places", {
     method: "PUT",

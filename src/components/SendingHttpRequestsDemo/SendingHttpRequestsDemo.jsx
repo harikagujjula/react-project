@@ -7,6 +7,8 @@ import logoImg from './assets/logo.png';
 import SHDAvailablePlaces from './SHDAvailablePlaces.jsx';
 import { updateUserPlaces } from './http.js';
 import Error from './Error.jsx';
+import { useEffect } from 'react';
+import { fetchUserPlaces } from './http.js';
 
 function SendingHttpRequestsDemo() {
   const selectedPlace = useRef();
@@ -15,6 +17,27 @@ function SendingHttpRequestsDemo() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [errorUpdatingPlaces, setErrorUpdatingPlaces] = useState();
 
+  // Using state to manage the loading state of the user places.
+  const [isFetching, setIsFetching] = useState(false);
+  const [error, setError] = useState();
+
+
+  // Setting the initial state of the places as the user selected places.
+  useEffect(() => {
+    async function fetchPlaces() {
+      setIsFetching(true);
+      try {
+        const places = await fetchUserPlaces();
+        setUserPlaces(places);
+      }
+      catch (error) {
+        setError({message: error.message || 'Failed to fetch user places.'});
+      }
+      setIsFetching(false);
+    }
+    // Calling the function.
+    fetchPlaces();
+  }, []);
   function handleStartRemovePlace(place) {
     setModalIsOpen(true);
     selectedPlace.current = place;
@@ -100,12 +123,16 @@ function SendingHttpRequestsDemo() {
         </p>
       </header>
       <main>
-        <SHDPlaces
+        {error && <Error title="An error occured" message={error.message} />}
+        {!error && <SHDPlaces
           title="I'd like to visit ..."
+          isLoading={isFetching}
+          loadingText="Fetching your places..."
           fallbackText="Select the places you would like to visit below."
           places={userPlaces}
           onSelectPlace={handleStartRemovePlace}
         />
+        }
 
         <SHDAvailablePlaces onSelectPlace={handleSelectPlace} />
       </main>
