@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 import SHDPlaces from './SHDPlaces.jsx';
+import Error from './Error.jsx';
 
 export default function SHDAvailablePlaces({ onSelectPlace }) {
-  // const [isFetching, setFetching] = useState();
   const [availablePlaces, setAvailablePlaces] = useState([]);
+  const [error, setError] = useState();
+
 
   /* Making a Http request and fetching(broswer function) the data from a file
    stored in a different server.
 
-   fetch here simply is GET request thatreturns a promise, so we can use .then()
+   fetch here simply is GET request that returns a promise, so we can use .then()
    to handle the response when the promise is resolved(request or response is
    successful). A promise is a standard javascript object that will yield
-   different values dependeing on the state of the promise. To access values,
+   different values depending on the state of the promise. To access values,
    we can chain methods like .then() and .catch() to the promise object.
 
   fetch ('http://localhost:3000/places').then((response) => {
@@ -45,14 +47,33 @@ export default function SHDAvailablePlaces({ onSelectPlace }) {
     // Using async/await syntax to handle promises. Note that componnent
     // functions cannot be async. So we can define an async function inside.
     async function fetchPlaces() {
-      const response = await fetch ('http://localhost:3000/places');
-      const resData = await response.json();
-      setAvailablePlaces(resData.places);
+
+      // There could be chances of the request sent failing due to network issues or
+      //  server crash and receiving no response or error response. So using try/ctach.
+      try {
+        const response = await fetch ('http://localhost:3000/places');
+        const resData = await response.json();
+        // Throw error if no response is received.
+        if (!response.ok) {
+          throw new Error(resData.message || 'Failed to fetch places.');
+        }
+
+        // setAvailablePlaces should be inside try block so that we set only when we have the data.
+        setAvailablePlaces(resData.places);
+      }
+      catch (error) {
+        setError({message: error.message || 'Failed to fetch places.'});
+      }
     }
 
     // Calling fetchPlaces().
     fetchPlaces();
   }, []);
+
+  // Handling/Showing any errors that might have occured during the fetch.
+  if (error) {
+    return <Error title="An error occured" message={error.message}/>;
+  }
 
   return (
     <SHDPlaces

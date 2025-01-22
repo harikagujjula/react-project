@@ -9,3 +9,26 @@
   * You communicate with the backend (API) via HTTP requests.
   * REST API is a web server (like Database server) that exposes pre-defined
     routes/urls to which you can send Http requests & data and recieve back data.
+  * To fetch the data, can make use of fetch()
+    ```
+    fetch ('http://localhost:3000/places').then((response) => {
+      Function to handle once the response is returned.
+    });
+    ```
+  * fetch() returns a promise, meaning a Http request takes some time to fetch
+    and return the response, so the response is not yet present but will be there.
+  * A promise is a standard javascript object that will yield
+    different values depending on the state of the promise. To access values,
+    we can chain methods like .then() and .catch() to the promise object.
+  * With Modern javascript another way of handling promisses is using await, async.
+    * await should be used in conjuction with async.
+    * React does not allow having the component functions defined as async. Hence
+      we can create an async function inside the component function.
+  * Ensure a loading state, Error state and Data state are all captured/handled
+    in a component dealing with HTTP requests.
+      * While fetching data, show a text that could say loading.
+      * Show error if the fetch fails.
+      * Show data once response is received.
+  * Make use of try/catch blocks as fetching data could sometimes fail and so we
+    let the user know about the failure.
+
