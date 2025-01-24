@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useEffect } from 'react';
+import { useRef, useState, useCallback } from 'react';
 
 import CHDPlaces from './CHDPlaces.jsx';
 import CHDModal from './CHDModal.jsx';
@@ -8,33 +8,19 @@ import CHDAvailablePlaces from './CHDAvailablePlaces.jsx';
 import { fetchUserPlaces, updateUserPlaces } from './http.js';
 import CHDError from './CHDError.jsx';
 import './CustomHooksDemo.css';
+import { useFetch } from '../../hooks/useFetch.js';
 
 function CustomHooksDemo() {
   const selectedPlace = useRef();
-
-  const [userPlaces, setUserPlaces] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
-  const [error, setError] = useState();
 
   const [errorUpdatingPlaces, setErrorUpdatingPlaces] = useState();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  useEffect(() => {
-    async function fetchPlaces() {
-      setIsFetching(true);
-      try {
-        const places = await fetchUserPlaces();
-        setUserPlaces(places);
-      } catch (error) {
-        setError({ message: error.message || 'Failed to fetch user places.' });
-      }
-
-      setIsFetching(false);
-    }
-
-    fetchPlaces();
-  }, []);
+  // Moving useEffect to a custom hook along with the state variables and
+  // calling the custom hook with the fetchUserPlaces() and initial state value
+  // for data as params.
+  const {fetchedData: userPlaces, isFetching, error, setFetchedData: setUserPlaces} = useFetch(fetchUserPlaces, []);
 
   function handleStartRemovePlace(place) {
     setModalIsOpen(true);
