@@ -28,4 +28,8 @@
   re-usability of the custom hook. Note that even here, if the state in custom
   hooks is updated, that also re-executes the component that this hook being
   used in. Behavior of the component remains same.
-*
+* Note that usage of custom hook in one component is totally independent of
+  another. So if the state is updated in the useFetch hook when used with
+  CHDAvailablePlaces component, CHDAvailablePlaces gets re-executed and the
+  CustomHooksDemo component will not be re-executed just because useFetch() is
+  being called by this component too.
