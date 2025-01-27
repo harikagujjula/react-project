@@ -9,6 +9,7 @@ import { log } from './components/BehindTheScenesDemo/log';
 import ClassBasedComponents from './components/Navigation/ClassBasedComponents/ClassBasedComponents';
 import SendingHttpRequests from './components/Navigation/SendingHttpRequests/SendingHttpRequests';
 import CustomHooks from './components/Navigation/CustomHooks/CustomHooks';
+import UserForms from './components/Navigation/UserForms/UserForms';
 
 const router = createBrowserRouter([
   {path: '/', element: <InitialReactConcepts />},
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
   {path: 'behind-the-scenes', element: <BehindTheScenes />},
   {path: '/class-based-components', element: <ClassBasedComponents />},
   {path: '/sending-http-requests', element: <SendingHttpRequests />},
-  {path: '/custom-hooks', element: <CustomHooks />}
+  {path: '/custom-hooks', element: <CustomHooks />},
+  {path: '/user-forms', element: <UserForms />},
 ]);
 
 function App() {
