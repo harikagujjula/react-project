@@ -1,3 +1,6 @@
+/**
+ * This file is a component for Login form using State.
+ */
 import { useState } from "react";
 
 export default function UFLoginUsingState() {
@@ -12,6 +15,16 @@ export default function UFLoginUsingState() {
   function handleSubmit (event) {
     event.preventDefault();
     console.log('Form submitted. Entered values are: ', enteredValues);
+
+    // Resetting the form after submission.
+    /* Note that we can also simply reset the form by setting the button type to
+       reset. Button type set to submit is for submitting and if its a button,
+       then its a simple button where we have to handle any processing for click.
+       */
+    setEnteredValues({
+      email: '',
+      password: ''
+    });
   }
 
   // Change Listener.

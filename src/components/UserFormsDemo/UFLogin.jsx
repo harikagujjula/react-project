@@ -14,6 +14,20 @@ export default function UFLoginUsingState() {
     const enteredEmail = email.current.value;
     const enteredPwd = password.current.value;
     console.log('Form submitted. Entered values are: ', enteredEmail, enteredPwd);
+
+    // Resetting the form after submission.
+    /* As we are using Refs, we can directly reset the values of the input
+      fields, by setting them to empty string. But this is not the best way to
+      update the DOM in React and is not recommended as React should be
+      responsible for updating DOM  values and we should not manually do it.
+
+      email.current.value = '';
+
+      Instead we can use the same method that can be used with FormData object
+      using event.target.reset() which is same as setting the button type to
+      reset.
+     */
+      event.target.reset();
   }
 
   return (
