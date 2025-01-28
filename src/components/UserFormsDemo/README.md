@@ -4,6 +4,14 @@
   * Can be done 3 ways
     * useState to manage entered values.
     * Can be extracted via refs.
+      Pros:
+        * All we need is to define the refs, attach to the input field and access
+        using .current.
+        * Less code compared with the state management, as no listeners required
+        to track the changes, no code required to update their values on change.
+      Cons:
+        * Though we can reset the input values as email.current.value = '',
+        as we learnt, it is not recommended to update the DOM manually.
     * Via FormData object and native browser functions.
   * By default the type for a button is submit. If we add a onClick for a button
     in a form, the form gets submitted. Though the Submit function gets

@@ -1,19 +1,26 @@
-// Form submission using Refs.
-
-import { useRef } from "react";
+import { useState } from "react";
 
 export default function UFLoginUsingState() {
-  // Defining Refs for input fields.
-  const email = useRef();
-  const password = useRef();
+  // Can have multiple states for each input or combine together into an object.
+  // const [enteredEmail, setEneteredEmail] = useState('');
+  // const [enteredPwd, setEneteredPwd] = useState('');
+  const [enteredValues, setEnteredValues] = useState({
+    email: '',
+    password: ''
+  });
 
   function handleSubmit (event) {
     event.preventDefault();
+    console.log('Form submitted. Entered values are: ', enteredValues);
+  }
 
-    // Getting the current value of the Refs.
-    const enteredEmail = email.current.value;
-    const enteredPwd = password.current.value;
-    console.log('Form submitted. Entered values are: ', enteredEmail, enteredPwd);
+  // Change Listener.
+  function handleInputIdentifier(identifier, value) {
+    setEnteredValues((prevValues) => ({
+      ...prevValues,
+      // Using the identifier to dynamically update the state.
+      [identifier]: value
+    }));
   }
 
   return (
@@ -24,16 +31,16 @@ export default function UFLoginUsingState() {
         <div className="control no-margin">
           <label htmlFor="email">Email</label>
           <input id="email" type="email" name="email"
-          // Attaching the ref to the input field.
-          ref={email}
-          />
+          // Adding onchange prop and value to the input field.
+          onChange={(event) => handleInputIdentifier('email', event.target.value)}
+          value={enteredValues.email}/>
         </div>
 
         <div className="control no-margin">
           <label htmlFor="password">Password</label>
           <input id="password" type="password" name="password"
-          // Attaching the ref to the input field.
-          ref={password}
+          onChange={(event) => handleInputIdentifier('password', event.target.value)}
+          value={enteredValues.password}
           />
         </div>
       </div>
