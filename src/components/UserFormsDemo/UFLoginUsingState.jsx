@@ -12,6 +12,16 @@ export default function UFLoginUsingState() {
     password: ''
   });
 
+  // Defining state to keep track of input fields losing focus.
+  const [didEdit, setDidEdit] = useState({
+    email: false,
+    password: false
+  });
+
+  // Form Validation.
+  const emailIsInvalid = enteredValues.email !== '' && !enteredValues.email.includes('@');
+  const pwdIsInvalid = didEdit.password && enteredValues.password.length < 4;
+
   function handleSubmit (event) {
     event.preventDefault();
     console.log('Form submitted. Entered values are: ', enteredValues);
@@ -36,6 +46,13 @@ export default function UFLoginUsingState() {
     }));
   }
 
+  function handleInputBlur(identifier) {
+    setDidEdit((prevValues) => ({
+      ...prevValues,
+      [identifier]: true
+    }));
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
@@ -47,6 +64,10 @@ export default function UFLoginUsingState() {
           // Adding onchange prop and value to the input field.
           onChange={(event) => handleInputIdentifier('email', event.target.value)}
           value={enteredValues.email}/>
+          {/* Validating input on every key stroke. */}
+          {emailIsInvalid &&
+            <div className="control-error">Please enter valid email address.</div>
+          }
         </div>
 
         <div className="control no-margin">
@@ -54,7 +75,14 @@ export default function UFLoginUsingState() {
           <input id="password" type="password" name="password"
           onChange={(event) => handleInputIdentifier('password', event.target.value)}
           value={enteredValues.password}
+          // Validating input on loosing focus.
+          onBlur={() => handleInputBlur('password')}
           />
+          {pwdIsInvalid &&
+            <div className="control-error">
+              Please enter password with minimum length of 5.
+            </div>
+          }
         </div>
       </div>
 
