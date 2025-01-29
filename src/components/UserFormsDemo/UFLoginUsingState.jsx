@@ -38,11 +38,18 @@ export default function UFLoginUsingState() {
   }
 
   // Change Listener.
-  function handleInputIdentifier(identifier, value) {
+  function handleInputChange(identifier, value) {
     setEnteredValues((prevValues) => ({
       ...prevValues,
       // Using the identifier to dynamically update the state.
       [identifier]: value
+    }));
+
+    // Also updating didEdit state, to combine the validation with onBlur with
+    // onChange, so that no error message shown when user starts typing after an error.
+    setDidEdit((prevValues) => ({
+      ...prevValues,
+      [identifier]: false
     }));
   }
 
@@ -62,7 +69,7 @@ export default function UFLoginUsingState() {
           <label htmlFor="email">Email</label>
           <input id="email" type="email" name="email"
           // Adding onchange prop and value to the input field.
-          onChange={(event) => handleInputIdentifier('email', event.target.value)}
+          onChange={(event) => handleInputChange('email', event.target.value)}
           value={enteredValues.email}/>
           {/* Validating input on every key stroke. */}
           {emailIsInvalid &&
@@ -73,7 +80,7 @@ export default function UFLoginUsingState() {
         <div className="control no-margin">
           <label htmlFor="password">Password</label>
           <input id="password" type="password" name="password"
-          onChange={(event) => handleInputIdentifier('password', event.target.value)}
+          onChange={(event) => handleInputChange('password', event.target.value)}
           value={enteredValues.password}
           // Validating input on loosing focus.
           onBlur={() => handleInputBlur('password')}

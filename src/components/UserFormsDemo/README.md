@@ -64,6 +64,15 @@
     * On every keystroke => errors may be shown too early.
     * On lost focus of an input => errors may be shown too long.
     * On form submission => errors may be shown too late.
-
-    We could combine all these methods to provide better user experience.
+  * Using State it is good way to combine the validation on every key stroke
+    and on blur for a better experience (UFLoginUsingState)
+  * Using Refs, it is better to validate on Submission of the form.
+  * Validating on form submission is a good idea even though we are validating
+    on key stroke, ob blur.
+  * Another way of validation is by using built-in validation props provided by
+    the browser like required, min-length etc.
+    Note that required attribute not only validates for empty input, but also
+    validates for valid inputs like an email should be a proper email address.
+  * We could combine all these methods to provide better user experience, based
+    on the experience required.
 

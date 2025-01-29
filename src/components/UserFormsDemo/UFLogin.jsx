@@ -1,11 +1,14 @@
 // Form submission using Refs.
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function UFLoginUsingState() {
   // Defining Refs for input fields.
   const email = useRef();
   const password = useRef();
+
+  // Using State to reflect the validation error.
+  const [emailIsInvalid, setEmailIsInvalid] = useState();
 
   function handleSubmit (event) {
     event.preventDefault();
@@ -14,6 +17,17 @@ export default function UFLoginUsingState() {
     const enteredEmail = email.current.value;
     const enteredPwd = password.current.value;
     console.log('Form submitted. Entered values are: ', enteredEmail, enteredPwd);
+
+    // Validation on submit.
+    const emailIsValid = enteredEmail.includes('@');
+    if (!emailIsValid) {
+      setEmailIsInvalid(true);
+      // No other processing if validation fails.
+      return;
+    }
+
+    // Otherwise reset the error state.
+    setEmailIsInvalid(false);
 
     // Resetting the form after submission.
     /* As we are using Refs, we can directly reset the values of the input
@@ -41,6 +55,9 @@ export default function UFLoginUsingState() {
           // Attaching the ref to the input field.
           ref={email}
           />
+          {emailIsInvalid &&
+            <div className="control-error">Please enter a valid email.</div>
+          }
         </div>
 
         <div className="control no-margin">
