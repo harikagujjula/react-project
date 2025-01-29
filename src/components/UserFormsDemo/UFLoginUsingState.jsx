@@ -3,6 +3,7 @@
  */
 import { useState } from "react";
 import UFInput from "./UFInput";
+import { isEmail, isNotEmpty, hasMinLength} from "./util/validation"
 
 export default function UFLoginUsingState() {
   // Can have multiple states for each input or combine together into an object.
@@ -20,8 +21,11 @@ export default function UFLoginUsingState() {
   });
 
   // Form Validation.
-  const emailIsInvalid = enteredValues.email !== '' && !enteredValues.email.includes('@');
-  const pwdIsInvalid = didEdit.password && enteredValues.password.trim().length < 6;
+  const emailIsInvalid = didEdit.email &&
+    !isNotEmpty(enteredValues.email) &&
+    !isEmail(enteredValues.email);
+  const pwdIsInvalid = didEdit.password &&
+    hasMinLength(enteredValues.password, 6);
 
   function handleSubmit (event) {
     event.preventDefault();
@@ -85,7 +89,7 @@ export default function UFLoginUsingState() {
           onChange={(event) => handleInputChange('password', event.target.value)}
           onBlur={() => handleInputBlur('password')}
           value={enteredValues.password}
-          error={emailIsInvalid && 'Please enter a valid password.'}
+          error={pwdIsInvalid && 'Please enter a valid password.'}
           />
       </div>
 
