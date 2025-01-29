@@ -1,7 +1,7 @@
 import UFHeader from "./UFHeader";
 import UFLoginUsingState from "./UFLoginUsingState";
-import UFLogin from "./UFLogin";
-import UFSignUp from "./UFSignUp";
+// import UFLogin from "./UFLogin";
+// import UFSignUp from "./UFSignUp";
 import "./UserFormsDemo.css";
 
 export default function UserFormsDemo() {
@@ -10,8 +10,8 @@ export default function UserFormsDemo() {
       <UFHeader />
       <main>
         {/* <UFLogin /> */}
-        {/* <UFLoginUsingState /> */}
-        <UFSignUp />
+        <UFLoginUsingState />
+        {/* <UFSignUp /> */}
       </main>
     </>
   );

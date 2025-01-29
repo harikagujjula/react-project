@@ -2,6 +2,7 @@
  * This file is a component for Login form using State.
  */
 import { useState } from "react";
+import UFInput from "./UFInput";
 
 export default function UFLoginUsingState() {
   // Can have multiple states for each input or combine together into an object.
@@ -20,7 +21,7 @@ export default function UFLoginUsingState() {
 
   // Form Validation.
   const emailIsInvalid = enteredValues.email !== '' && !enteredValues.email.includes('@');
-  const pwdIsInvalid = didEdit.password && enteredValues.password.length < 4;
+  const pwdIsInvalid = didEdit.password && enteredValues.password.trim().length < 6;
 
   function handleSubmit (event) {
     event.preventDefault();
@@ -65,32 +66,27 @@ export default function UFLoginUsingState() {
       <h2>Login</h2>
 
       <div className="control-row">
-        <div className="control no-margin">
-          <label htmlFor="email">Email</label>
-          <input id="email" type="email" name="email"
-          // Adding onchange prop and value to the input field.
+        <UFInput
+          label="Email"
+          id="email"
+          type="email"
+          name="email"
           onChange={(event) => handleInputChange('email', event.target.value)}
-          value={enteredValues.email}/>
-          {/* Validating input on every key stroke. */}
-          {emailIsInvalid &&
-            <div className="control-error">Please enter valid email address.</div>
-          }
-        </div>
-
-        <div className="control no-margin">
-          <label htmlFor="password">Password</label>
-          <input id="password" type="password" name="password"
-          onChange={(event) => handleInputChange('password', event.target.value)}
-          value={enteredValues.password}
-          // Validating input on loosing focus.
-          onBlur={() => handleInputBlur('password')}
+          onBlur={() => handleInputBlur('email')}
+          value={enteredValues.email}
+          error={emailIsInvalid && 'Please enter a valid email.'}
           />
-          {pwdIsInvalid &&
-            <div className="control-error">
-              Please enter password with minimum length of 5.
-            </div>
-          }
-        </div>
+
+        <UFInput
+          label="Password"
+          id="password"
+          type="password"
+          name="password"
+          onChange={(event) => handleInputChange('password', event.target.value)}
+          onBlur={() => handleInputBlur('password')}
+          value={enteredValues.password}
+          error={emailIsInvalid && 'Please enter a valid password.'}
+          />
       </div>
 
       <p className="form-actions">
