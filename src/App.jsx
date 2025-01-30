@@ -10,6 +10,7 @@ import ClassBasedComponents from './components/Navigation/ClassBasedComponents/C
 import SendingHttpRequests from './components/Navigation/SendingHttpRequests/SendingHttpRequests';
 import CustomHooks from './components/Navigation/CustomHooks/CustomHooks';
 import UserForms from './components/Navigation/UserForms/UserForms';
+import UsingFormActions from './components/Navigation/UsingFormActions/UsingFormActions';
 
 const router = createBrowserRouter([
   {path: '/', element: <InitialReactConcepts />},
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
   {path: '/sending-http-requests', element: <SendingHttpRequests />},
   {path: '/custom-hooks', element: <CustomHooks />},
   {path: '/user-forms', element: <UserForms />},
+  {path: '/using-form-actions', element: <UsingFormActions />}
 ]);
 
 function App() {
