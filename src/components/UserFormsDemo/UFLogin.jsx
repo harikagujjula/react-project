@@ -2,13 +2,14 @@
 
 import { useRef, useState } from "react";
 
-export default function UFLoginUsingState() {
+export default function UFLogin() {
   // Defining Refs for input fields.
   const email = useRef();
   const password = useRef();
 
   // Using State to reflect the validation error.
   const [emailIsInvalid, setEmailIsInvalid] = useState();
+      console.log('Entered values are: ', email.current.value, password.current.value);
 
   function handleSubmit (event) {
     event.preventDefault();

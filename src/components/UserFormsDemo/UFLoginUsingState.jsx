@@ -1,95 +1,58 @@
 /**
  * This file is a component for Login form using State.
  */
-import { useState } from "react";
-import UFInput from "./UFInput";
-import { isEmail, isNotEmpty, hasMinLength} from "./util/validation"
+import { useUFInput } from '../../hooks/useUFInput.js';
+import UFInput from './UFInput';
+import { isEmail, isNotEmpty, hasMinLength} from './util/validation.js';
 
 export default function UFLoginUsingState() {
-  // Can have multiple states for each input or combine together into an object.
-  // const [enteredEmail, setEneteredEmail] = useState('');
-  // const [enteredPwd, setEneteredPwd] = useState('');
-  const [enteredValues, setEnteredValues] = useState({
-    email: '',
-    password: ''
-  });
+  // Using custom hook to handle input fields with default value, validate functions as arguments.
+  const {
+    value: emailValue,
+    handleInputChange: handleEmailChange,
+    handleInputBlur: handleEmailBlur,
+    hasError: emailHasError
+  } = useUFInput('', (value) => isEmail(value) && isNotEmpty(value));
 
-  // Defining state to keep track of input fields losing focus.
-  const [didEdit, setDidEdit] = useState({
-    email: false,
-    password: false
-  });
-
-  // Form Validation.
-  const emailIsInvalid = didEdit.email &&
-    !isNotEmpty(enteredValues.email) &&
-    !isEmail(enteredValues.email);
-  const pwdIsInvalid = didEdit.password &&
-    hasMinLength(enteredValues.password, 6);
+  const {
+    value: passwordValue,
+    handleInputChange: handlePasswordChange,
+    handleInputBlur: handlePasswordBlur,
+    hasError: passwordHasError
+  } = useUFInput('', (value) => isNotEmpty(value) && hasMinLength(value, 6));
 
   function handleSubmit (event) {
     event.preventDefault();
-    console.log('Form submitted. Entered values are: ', enteredValues);
+    console.log('Form submitted. Entered values are:', emailValue, passwordValue);
 
-    // Resetting the form after submission.
-    /* Note that we can also simply reset the form by setting the button type to
-       reset. Button type set to submit is for submitting and if its a button,
-       then its a simple button where we have to handle any processing for click.
-       */
-    setEnteredValues({
-      email: '',
-      password: ''
-    });
-  }
-
-  // Change Listener.
-  function handleInputChange(identifier, value) {
-    setEnteredValues((prevValues) => ({
-      ...prevValues,
-      // Using the identifier to dynamically update the state.
-      [identifier]: value
-    }));
-
-    // Also updating didEdit state, to combine the validation with onBlur with
-    // onChange, so that no error message shown when user starts typing after an error.
-    setDidEdit((prevValues) => ({
-      ...prevValues,
-      [identifier]: false
-    }));
-  }
-
-  function handleInputBlur(identifier) {
-    setDidEdit((prevValues) => ({
-      ...prevValues,
-      [identifier]: true
-    }));
+    if (emailHasError || passwordHasError) {
+      return;
+    }
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
-
       <div className="control-row">
         <UFInput
           label="Email"
           id="email"
           type="email"
           name="email"
-          onChange={(event) => handleInputChange('email', event.target.value)}
-          onBlur={() => handleInputBlur('email')}
-          value={enteredValues.email}
-          error={emailIsInvalid && 'Please enter a valid email.'}
+          onChange={handleEmailChange}
+          onBlur={handleEmailBlur}
+          value={emailValue}
+          error={emailHasError && 'Please enter a valid email.'}
           />
-
-        <UFInput
+         <UFInput
           label="Password"
           id="password"
           type="password"
           name="password"
-          onChange={(event) => handleInputChange('password', event.target.value)}
-          onBlur={() => handleInputBlur('password')}
-          value={enteredValues.password}
-          error={pwdIsInvalid && 'Please enter a valid password.'}
+          onChange={handlePasswordChange}
+          onBlur={handlePasswordBlur}
+          value={passwordValue}
+          error={passwordHasError && 'Please enter a valid password.'}
           />
       </div>
 

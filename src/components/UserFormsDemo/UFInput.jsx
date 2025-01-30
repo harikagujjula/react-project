@@ -4,6 +4,7 @@ export default function UFInput({label, id, error, ...props}) {
       <label htmlFor={id}>{label}</label>
       {/* Type, name, onChange, value and other extra props show up using props. */}
       <input id={id}
+      {...props}
       />
       {/* Validating input on every key stroke. */}
       {error &&
