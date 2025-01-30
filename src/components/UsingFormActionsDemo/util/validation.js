@@ -3,7 +3,7 @@ export function isEmail(value) {
 }
 
 export function isNotEmpty(value) {
-  return value.trim() !== '';
+  return value !== '';
 }
 
 export function hasMinLength(value, minLength) {
