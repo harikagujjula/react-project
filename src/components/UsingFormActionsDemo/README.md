@@ -16,7 +16,7 @@
   the function each time on component execution.
 
 
-## useStateAction hook
+## useActionState hook
 
 * React ^19 provides a hook to manage the form state based on the results of the
   form actions(submission).
@@ -47,8 +47,8 @@
     });
   ```
 * Update the form action props value with the function(formAction) returned by
-  the useStateAction hook instead of the action function(signupAction).
-* While using useStateAction, ensure the action function aceepts 2 arguments
+  the useActionState hook instead of the action function(signupAction).
+* While using useActionState, ensure the action function aceepts 2 arguments
   with formData becoming the 2nd argument. If this step is not considered, you
   might notice console errors saying "formData.get() is not a function".
   1. prevFormState - the Previous state of the form.
