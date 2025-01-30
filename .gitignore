@@ -24,6 +24,7 @@ yarn-error.log*
 
 # backend
 /backend/node_modules
+/backend_using_form_actions/node_modules
 
 # vscode config
 .vscode/
