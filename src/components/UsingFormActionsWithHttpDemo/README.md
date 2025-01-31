@@ -7,3 +7,15 @@
     project root.
   * Ensure changing of the ports package.json for the backend folders
     accordingly as we have maintained a single repo for multiple tasks.
+
+## Concepts learned
+  * Submitting the form data with form actions to the backend server.
+  * Using use() to access the opinion context.
+  * Usage of useFormStatus () hook provided by React.
+    * Gives status information of the last form submission.
+    * Used to prevent multiple click of submit button while it is processing the
+    submit function.
+    * Import it from react-dom.
+    * Should be used in conjuction with form actions.
+    * Cannot be used in the same component where the form is defined. Rather
+    should be used in a nested component.

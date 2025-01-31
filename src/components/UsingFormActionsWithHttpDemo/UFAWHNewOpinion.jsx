@@ -1,5 +1,6 @@
 import { useActionState, use } from "react";
 import { OpinionsContext } from "../../store/opinions-context";
+import UFAWHSubmit from "./UFAWHSubmit";
 
 export function UFAWHNewOpinion() {
   // Using use() as this is Rect ^19 to access the context.
@@ -43,6 +44,15 @@ export function UFAWHNewOpinion() {
   }
 
   // Managing the formstate values using useActionState hook.
+  /* Could make use of pending for async response so that the submit button
+     could be disabled while waiting for the response and so preventing user to
+     submit multiple times, while processing.
+
+     For now, using another hook useFormStatus() that can be used in conjuction
+     with form actions. But useFormStatus() should not be used in the same
+     component function that has the form, rather should be included in nested
+     component.  Since we do not have one nested component, lets create a
+     component function for submit.*/
   const [formState, formAction] = useActionState(shareOpinionAction, {
     errors: null,
   });
@@ -90,9 +100,7 @@ export function UFAWHNewOpinion() {
           </ul>
         )}
 
-        <p className="actions">
-          <button type="submit">Submit</button>
-        </p>
+        <UFAWHSubmit />
       </form>
     </div>
   );
