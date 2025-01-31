@@ -22,3 +22,9 @@
   * Registering multiple form actions.
     * Like we have action prop for Form, Each button can accept formAction prop
       to allow different actions with each button.
+  * Usage of pending state for button form actions that is provided by
+    useActionState() to disable buttons after submitting until the process is
+    completed.
+    *** Note: ***
+    We could also make use of useFormStatus() but we will have to outsource that
+    in a nested component.
