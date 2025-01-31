@@ -1,7 +1,11 @@
-import { useActionState } from "react";
+import { useActionState, use } from "react";
+import { OpinionsContext } from "../../store/opinions-context";
 
 export function UFAWHNewOpinion() {
-  function shareOpinionAction(prevFormState, formData) {
+  // Using use() as this is Rect ^19 to access the context.
+  const { addOpinion } = use(OpinionsContext);
+
+  async function shareOpinionAction(prevFormState, formData) {
     const userName = formData.get("userName");
     const title = formData.get("title");
     const body = formData.get("body");
@@ -30,8 +34,11 @@ export function UFAWHNewOpinion() {
       };
     }
 
-    // Submit to backend.
-
+    // Submit the opinion to backend.
+    /* As addOpinion() is a async function, we are waiting for the response.
+    So adding await for addOpinion. Also to make use of await, the function
+    with await should be declared as async. */
+    await addOpinion({ title, body, userName });
     return { errors: null };
   }
 
