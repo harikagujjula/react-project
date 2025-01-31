@@ -19,3 +19,6 @@
     * Should be used in conjuction with form actions.
     * Cannot be used in the same component where the form is defined. Rather
     should be used in a nested component.
+  * Registering multiple form actions.
+    * Like we have action prop for Form, Each button can accept formAction prop
+      to allow different actions with each button.
