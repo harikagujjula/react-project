@@ -80,5 +80,20 @@
     import store from "<location of the store>";
     ```
     <Provider store={store}><App></Provider>
+  * To show the value provided by the store, in the component (URCounter here):
+    - Import useSelector() hook from react-redux.
+      ```
+      import { useSelector } from "react-redux";
+      ```
+      This is used to fetch selected part of the store. When a component uses
+      this hook, react-redux will setup automatically a subscription to the
+      Redux store for that component. So our component will be updated and will
+      receive the latest state from Redux each time the store is updated.
+      If a component(using useSelector()) is unmounted from DOM, react-redux
+      will automatically unsubscribe to the Store.
+
+      There is also useStore() hook provided by react-redux that gives access to
+      the whole store.
+
 
 
