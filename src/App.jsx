@@ -12,6 +12,7 @@ import CustomHooks from "./components/Navigation/CustomHooks/CustomHooks";
 import UserForms from "./components/Navigation/UserForms/UserForms";
 import UsingFormActions from "./components/Navigation/UsingFormActions/UsingFormActions";
 import UsingFormActionsWithHttp from "./components/Navigation/UsingFormActionsWithHttp/UsingFormActionsWithHttpDemo";
+import UsingReduxForCounter from "./components/Navigation/UsingReduxForCounter/UsingReduxForCounter";
 
 const router = createBrowserRouter([
   { path: "/", element: <InitialReactConcepts /> },
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
     path: "/using-form-actions-with-http",
     element: <UsingFormActionsWithHttp />,
   },
+  { path: "/using-redux", element: <UsingReduxForCounter /> },
 ]);
 
 function App() {

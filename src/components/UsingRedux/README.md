@@ -59,5 +59,26 @@
                     |   Dispatch            V
                      ----------------- Components
 
+## Working with Redux
+  * npm install redux, react-redux if not included in the project already.
+  * Now that we have the redux store created, how to connect that with React app?
+  * Export the store. Since there will be only one Redux store per application,
+    use:
+    export default <store_name>.
+  * Note: We provide the exported store to the react application.
+    This should be provided at the top most level of component tree (App component),
+    so that all the components and its children can subscribe to the store and
+    receive any updated changes.
+  * Import Provider from react-redux.
+    ```
+    import { Provider } from "react-redux";
+    ```
+  * Wrap the component with Provider (Similar to Context).
+    <Provider><App></Provider>
+  * Import store and pass the store as param to the provider.
+    ```
+    import store from "<location of the store>";
+    ```
+    <Provider store={store}><App></Provider>
 
 
