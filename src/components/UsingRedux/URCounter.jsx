@@ -5,6 +5,8 @@ import classes from "./URCounter.module.css";
   the whole store.
   */
 import { useSelector } from "react-redux";
+// useDispatch() hook to dispatch actions.
+import { useDispatch } from "react-redux";
 
 const URCounter = () => {
   /* We send a function to the useSelector() that receives state managed  by
@@ -22,12 +24,34 @@ const URCounter = () => {
   */
   // Getting the counter managed by Redux.
   const counter = useSelector((state) => state.counter);
+
+  /* Using useDispatch() to dispatch actions.
+     Accepts No arguments.
+     Returns a function that dispatches an action against Redux store.
+  */
+  const dispatch = useDispatch();
+
+  // Adding 2 functions for the buttons with dispatch.
+  const incrementHandler = () => {
+    // Dispatching an action on button click in the click handlers.
+    dispatch({ type: "increment" });
+  };
+
+  const decrementHandler = () => {
+    dispatch({ type: "decrement" });
+  };
+
   const toggleCounterHandler = () => {};
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
       <div className={classes.value}>{counter}</div>
+      {/* Adding Buttons to Dispatch actions. */}
+      <div>
+        <button onClick={incrementHandler}>Increment</button>
+        <button onClick={decrementHandler}>Decrement</button>
+      </div>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
     </main>
   );

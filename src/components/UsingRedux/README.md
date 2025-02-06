@@ -61,6 +61,8 @@
 
 ## Working with Redux
   * npm install redux, react-redux if not included in the project already.
+
+### Using data from the store
   * Now that we have the redux store created, how to connect that with React app?
   * Export the store. Since there will be only one Redux store per application,
     use:
@@ -94,6 +96,13 @@
 
       There is also useStore() hook provided by react-redux that gives access to
       the whole store.
-
+### Updating data in the store.
+  * As we learnt, we do not manually update the data in the store, rather
+    components dispatch actions that are forwarded to the reducer to update the data.
+  * How to dispatch actions?
+    - React-redux provides useDispatch() hook which returns a function that can
+      dispatch actions to the store(Reducer is in the store).
+    - Create the handler functions for any buttons/elements as required and
+      dispatch the action type. The action type should match with those in the store.
 
 
