@@ -24,6 +24,8 @@ const URCounter = () => {
   */
   // Getting the counter managed by Redux.
   const counter = useSelector((state) => state.counter);
+  // Getting showCounter managed by Redux.
+  const showCounter = useSelector((state) => state.showCounter);
 
   /* Using useDispatch() to dispatch actions.
      Accepts No arguments.
@@ -46,13 +48,18 @@ const URCounter = () => {
     dispatch({ type: "increase", amount: 5 });
   };
 
-  const toggleCounterHandler = () => {};
+  const toggleCounterHandler = () => {
+    dispatch({ type: "toggle" });
+  };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
-      {/* Adding Buttons to Dispatch actions. */}
+      {/* Show/Hide based on showCounter state managed by Redux. */}
+      {showCounter && <div className={classes.value}>{counter}</div>}
+      {/* Adding Buttons to Dispatch actions. Note that the button counters here
+       are just component specific in this code and we could make use of
+       useState(). But assuming these are globally used and so we used Redux. */}
       <div>
         <button onClick={incrementHandler}>Increment</button>
         <button onClick={decrementHandler}>Decrement</button>

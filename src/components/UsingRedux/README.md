@@ -32,6 +32,8 @@
 ## How Redux works?
   * Maintains only one central data(state) store. You never have more.
     Ex: Authentication state, theme change state, etc all should have one store.
+  * The store data maintained by Redux can have multiple properties dependent /
+    independent of each other.
   * Components subsribes to the store, so that whenever there is a change in the
     state, the components receive a part of redux to indicate the components
     re-execution(should re-render the UI).
@@ -60,6 +62,10 @@
                      ----------------- Components
   * Actions can also attach payloads(extra data) to be sent to the Reducer function,
     to make it more flexible.
+  * We should always return complete object in a Reducer function even though few
+    properties are unchanged. This is because Reducer do not automatically merge
+    with the previous state. Rather it replaces the whole Redux state object
+    with whatever is returned by an action.
 ## Working with Redux
   * npm install redux, react-redux if not included in the project already.
 
