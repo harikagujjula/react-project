@@ -58,7 +58,8 @@
                     |                       |
                     |   Dispatch            V
                      ----------------- Components
-
+  * Actions can also attach payloads(extra data) to be sent to the Reducer function,
+    to make it more flexible.
 ## Working with Redux
   * npm install redux, react-redux if not included in the project already.
 

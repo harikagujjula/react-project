@@ -41,6 +41,11 @@ const URCounter = () => {
     dispatch({ type: "decrement" });
   };
 
+  const increaseBy5Handler = () => {
+    // Dispatching an action with extra payload.
+    dispatch({ type: "increase", amount: 5 });
+  };
+
   const toggleCounterHandler = () => {};
 
   return (
@@ -51,6 +56,7 @@ const URCounter = () => {
       <div>
         <button onClick={incrementHandler}>Increment</button>
         <button onClick={decrementHandler}>Decrement</button>
+        <button onClick={increaseBy5Handler}>Increase By 5</button>
       </div>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
     </main>
