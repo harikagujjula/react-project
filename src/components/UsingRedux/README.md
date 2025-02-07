@@ -62,7 +62,7 @@
 ## Working with Redux
   * npm install redux, react-redux if not included in the project already.
 
-### Using data from the store
+### Using data from the store(Functional components)
   * Now that we have the redux store created, how to connect that with React app?
   * Export the store. Since there will be only one Redux store per application,
     use:
@@ -96,7 +96,8 @@
 
       There is also useStore() hook provided by react-redux that gives access to
       the whole store.
-### Updating data in the store.
+
+### Updating data in the store.(Functional components)
   * As we learnt, we do not manually update the data in the store, rather
     components dispatch actions that are forwarded to the reducer to update the data.
   * How to dispatch actions?
@@ -104,5 +105,25 @@
       dispatch actions to the store(Reducer is in the store).
     - Create the handler functions for any buttons/elements as required and
       dispatch the action type. The action type should match with those in the store.
+
+### Using data from the store and updating data in the store using connect()(Class based components)
+  * connect() is provided by react-redux.
+  * Since Class based components do not allow hooks, connect() can be used as an
+    equivalent of useSelector(), useDipatch() hooks in Functional components.
+    Refer to *** URCounterClassBased *** component.
+  * connect() allows a component to subscribe to the store, get data from the
+    store and update data in the store.
+  * Receives 2 arguments as just pointers(and will be executed by React-redux):
+    - a function that maps redux state to props, which can then be used in this
+      component(mapStateToProps).
+    - a function that returns functions as props to the receiving component
+      (URCounterClassBased), which when executed will dispatch the
+      actions to the redux store(mapDispatchToProps).
+  * Returns a function as a value and that function will be executed again with
+    the component as an argument.
+  * So, When using connect, we should export the component as below:
+    ```
+    export default connect(mapStateToProps,mapDispatchToProps)(<component>);
+    ```
 
 

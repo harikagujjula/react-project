@@ -1,4 +1,5 @@
-import URCounter from "./URCounter";
+// import URCounter from "./URCounter";
+import URCounterClassBased from "./URCounterClassBased";
 import { Provider } from "react-redux";
 // Importing store from counter.
 import store from "../../store/counter";
@@ -15,7 +16,7 @@ export default function UsingReduxDemo() {
     Since we are trying to put all learning stuff into one project, we are
     providing the store at just this component level.*/}
       <Provider store={store}>
-        <URCounter />
+        <URCounterClassBased />
       </Provider>
     </>
   );
