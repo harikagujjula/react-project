@@ -1,71 +1,78 @@
-// This is a Redux store.
-import { createStore } from "redux";
+// This is a Redux store using Redux toolkit.
+// import { createStore } from "redux";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const initialState = { counter: 0, showCounter: true };
-// Creating Reducer.
-const counterReducer = (state = initialState, action) => {
-  if (action.type === "increment") {
-    /*
-     * Note: We should always return complete object even though few
-     * properties are unchanged, as Reducer do not automatically merge with the
-     * previous state. Rather it replaces the whole Redux state/store object
-     * with whatever is returned by an action.
-     *
-     * So, returning state.showCounter in increment, decrement, increase actions
-     * is needed.
-     */
-    return {
-      counter: state.counter + 1,
-      showCounter: state.showCounter,
-    };
 
-    /*
-      Below code works. But
-      * Note: We should never mutate/update the redux state directly.
-      state.counter++; (Incrementing directly here is wrong.)
-      return state;
-
-      (OR)
-
+// Preparing a slice of global state. Example: a slice for counter, a slice for authentication etc.
+/* createSlice needs following properties:
+    name -> User defined Identifier of the slice.
+    initialState -> with all initial values of the state.
+    reducers -> Object of all the reducers/methods/actions that are part of or needed by this slice.
+      - Each method automatically receive the latest state and action as arguments.
+      - These methods will be automatically be called and do not have to write
+        the if checks for action type.
+      - action argument is needed only when we have payload/data to deal with.
+      - In these methods in the reducers map, we are allowed to mutate the state.
+        For example: state.counter++ is allowed.
+        Eventhough our code looks like we are trying to mutate the state object,
+        we are doing it in an immutable way. How?
+        Redux toolkit uses an internal package called imgur, which will detect
+        code like this and automatically clones existing state, creates a
+        new state object, keeps all the state which we're not editing and
+        override the state which we are editing in an immutable way. i.e it is
+        translating the code to immutable way.
+    Returns a slice of state.
+ */
+const counterSlice = createSlice({
+  name: "counter",
+  initialState,
+  reducers: {
+    increment(state) {
+      // Mutating the state object is allowed with Redux toolkit(Imgur - internal
+      // package) which tranlsates this code to immutable way.
       state.counter++;
-      return {
-        counter: state.counter,
-      }
-
-      Rather, should always return brand new objects each time by copying any
-      nested arrays or objects if you have any and create new values.
-      return {
-        counter: state.counter + 1,
-      }
-     */
-  }
-
-  if (action.type === "decrement") {
-    return {
-      counter: state.counter - 1,
-      showCounter: state.showCounter,
-    };
-  }
-
-  if (action.type === "increase") {
-    return {
-      counter: state.counter + 5,
-      showCounter: state.showCounter,
-    };
-  }
-
-  if (action.type === "toggle") {
-    return {
-      showCounter: !state.showCounter,
-      counter: state.counter,
-    };
-  }
-
-  return state;
-};
+    },
+    decrement(state) {
+      state.counter--;
+    },
+    increase(state, action) {
+      // Also accepting action parameter as we are dealing with payload/data.
+      // Note that the default field name that redux uses for any extra data is payload.
+      state.counter += action.payload;
+    },
+    toggleCounter(state) {
+      state.showCounter = !state.showCounter;
+    },
+  },
+});
 
 // Creating Redux store.
-const store = createStore(counterReducer);
+/* Using the counterSlice.reducer as the reducer.
+  Since in this application we have only one slice, it might be easy to pass the
+  reducer this way.
+
+  const store = createStore(counterSlice.reducer);
+
+  But if we have multiple slices, with multiple reducers and
+  there can be only one reducer passed to the createStore(), We should either
+  make use of combineReducers provided by Redux or configureStore() from @reduxjs/toolkit,
+  that merges the all the reducers into one single reducer.
+
+  configureStore() -> Creates a store like createStore() and makes merging multiple
+    reducers into single one easier.
+    Accepts configuration object with properties:
+      reducer -> Can be single reducer (single slice) or an object with different
+      reducers that will be merged into one.
+ */
+// const store = createStore(counterSlice.reducer);
+const store = configureStore({
+  reducer: counterSlice.reducer,
+});
+
+/* Exporting action objects that are automatically created with unique
+identifiers for each action by createSlice(). */
+export const counterActions = counterSlice.actions;
 
 // Connecting React app to this Redux store.
 /* How should we connect React and redux store? We export the store and

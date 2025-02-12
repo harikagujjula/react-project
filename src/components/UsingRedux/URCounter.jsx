@@ -4,9 +4,10 @@ import classes from "./URCounter.module.css";
   There is also useStore() hook provided by react-redux that gives access to
   the whole store.
   */
-import { useSelector } from "react-redux";
 // useDispatch() hook to dispatch actions.
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+// Importing actions from counter.js.
+import { counterActions } from "../../store/counter.js";
 
 const URCounter = () => {
   /* We send a function to the useSelector() that receives state managed  by
@@ -36,20 +37,28 @@ const URCounter = () => {
   // Adding 2 functions for the buttons with dispatch.
   const incrementHandler = () => {
     // Dispatching an action on button click in the click handlers.
-    dispatch({ type: "increment" });
+    // dispatch({ type: "increment" });
+
+    // Using automatically created action object instead of above code
+    // that is created for us by createSlice().
+    dispatch(counterActions.increment());
   };
 
   const decrementHandler = () => {
-    dispatch({ type: "decrement" });
+    dispatch(counterActions.decrement());
   };
 
   const increaseBy5Handler = () => {
     // Dispatching an action with extra payload.
-    dispatch({ type: "increase", amount: 5 });
+    dispatch(counterActions.increase(5));
+    /* Redux toolkit creates action object automatically with somethinsg like:
+     { type: SOME_UNIQUE_IDENTIFIER, payload }
+      Note that the default field name that redux uses for any extra data is payload.
+      */
   };
 
   const toggleCounterHandler = () => {
-    dispatch({ type: "toggle" });
+    dispatch(counterActions.toggleCounter());
   };
 
   return (

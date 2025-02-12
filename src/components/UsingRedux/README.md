@@ -163,4 +163,56 @@
   * When we have nested data/complex objects we might accidentally mess up by
     changing the state directly rathern than creating a new object and copying
     the values.
+## Solution to Redux Challenges
+  * Though we have multiple solutions like:
+    Potential clash of action type identifiers => Make use of constants to define
+    action types, export and import them.
+    Ex:
+    export const INCREMENT = 'increment';
+    if (action.type === INCREMENT) ......
+    Large Redux file => can split into multiple redux files etc.
+    However, we don't have to dig into now and have Redux toolkit to address
+    these challenges.
+  * Developed by Redux team.
+  * Extra package that makes using Redux easy.
+## How to use Redux toolkit
+  * npm install @reduxjs/toolkit
+  * import createSlice from @reduxjs/toolkit
+  * There is also createReducer() provided by @reduxjs/toolkit, but createSlice()
+    is more powerful.
+### Creating Slices of state
+  * createSlice() used to maintain slices/portion of state and returns the same.
+    For example a slice for Counter, a slice for authentication etc.
+  * createSlice() accepts following properties(Each slice should have):
+      name -> User defined Identifier of the slice.
+      initialState -> with all initial values of the state.
+      reducers -> Object of all the reducers/methods/actions that are part of or needed by this slice.
+      - Each method automatically receive the latest state and action as arguments.
+      - The action argument is needed only when we have payload/data to deal with.
+      - These methods will automatically be called and do not have to write
+        the if checks for action type.
+      - *** NOTE *** In these methods in the reducers map, we are allowed to
+        mutate the state.
+        For example: *** state.counter++ is allowed with Redux toolkit. ***
+        Eventhough our code looks like we are trying to mutate the state object,
+        we are doing it in an immutable way. How?
+        Redux toolkit uses an internal package called *** imgur ***, which will detect
+        code like this and automatically clones existing state, creates a
+        new state object, keeps all the state which we're not editing and
+        override the state which we are editing in an immutable way. i.e it is
+        translating the code to immutable way.
+        PROS: We do not have to copy the rest of the state properties each time and so can get rid of some code.
+  * We could have multiple slices and so have multiple reducers. But there can be
+    only one reducer maintained globally and passed to createStore().
+  * configureStore() provided by @reduxjs/toolkit also creates store similar to
+    createStore() provided by Redux but also makes merging multiple reducers
+    (from multiple slices of state) into one single reducer.
+### Dispatching actions
+  * createSlice() automatically creates unique action identifiers for our methods in
+    different reducers. These methods are called action creators as they will
+    create action objects for us where these objects already have a type property
+    with unique identifier per action, automatically created behind the scenes.
+  * We can just export the actions in the store and import them as needed in the
+    component.
+
 
