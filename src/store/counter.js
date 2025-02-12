@@ -18,6 +18,26 @@ const counterReducer = (state = initialState, action) => {
       counter: state.counter + 1,
       showCounter: state.showCounter,
     };
+
+    /*
+      Below code works. But
+      * Note: We should never mutate/update the redux state directly.
+      state.counter++; (Incrementing directly here is wrong.)
+      return state;
+
+      (OR)
+
+      state.counter++;
+      return {
+        counter: state.counter,
+      }
+
+      Rather, should always return brand new objects each time by copying any
+      nested arrays or objects if you have any and create new values.
+      return {
+        counter: state.counter + 1,
+      }
+     */
   }
 
   if (action.type === "decrement") {

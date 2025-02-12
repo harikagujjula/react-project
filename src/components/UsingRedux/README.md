@@ -62,10 +62,33 @@
                      ----------------- Components
   * Actions can also attach payloads(extra data) to be sent to the Reducer function,
     to make it more flexible.
-  * We should always return complete object in a Reducer function even though few
+  * ***Note:*** We should always return complete object in a Reducer function even though few
     properties are unchanged. This is because Reducer do not automatically merge
-    with the previous state. Rather it replaces the whole Redux state object
-    with whatever is returned by an action.
+    with the previous state. Rather it replaces/overrides the whole Redux state
+    object with whatever is returned by an action.
+  * ***Note:*** We should never update/mutate the redux state object in the
+    Reducer function. Doing this way still works but, would lead to bugs or
+    causes debugging tough.
+    Example: Somewhere in the reducer function:
+    ```
+    state.counter++;
+    return state;
+    ```
+    (OR)
+    ```
+    state.counter++;
+    return state.counter;
+    ```
+    Instead return brand new object by copying nested arrays/objects and
+    assigning them with new values.
+    ```
+    return {
+      counter: state.counter + 1,
+      showCounter: state.showCounter,
+    }
+    ```
+    Ref: https://academind.com/tutorials/reference-vs-primitive-values
+
 ## Working with Redux
   * npm install redux, react-redux if not included in the project already.
 
@@ -133,4 +156,11 @@
     export default connect(mapStateToProps,mapDispatchToProps)(<component>);
     ```
 
+## Redux Challenges
+  * Potential clash of action type identifiers in case of bigger applications.
+  * Copying all the state/store when updating a piece of store when we have more
+    properties with state and so the bigger the store/redux file becomes.
+  * When we have nested data/complex objects we might accidentally mess up by
+    changing the state directly rathern than creating a new object and copying
+    the values.
 
