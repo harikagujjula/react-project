@@ -1,7 +1,7 @@
 import { Provider } from "react-redux";
 
-// Importing store from counter.
-import store from "../../store/counter";
+// Importing store from index.
+import store from "../../store/index";
 import UsingReduxDemo from "./UsingReduxDemo";
 
 export default function UsingReduxDemoApp() {

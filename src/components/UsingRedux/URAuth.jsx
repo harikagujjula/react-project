@@ -1,6 +1,6 @@
 import classes from "./URAuth.module.css";
 import { useDispatch } from "react-redux";
-import { authActions } from "../../store/counter";
+import { authActions } from "../../store/auth";
 
 const URAuth = () => {
   const dispatch = useDispatch();

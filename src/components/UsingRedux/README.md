@@ -123,6 +123,9 @@
       receive the latest state from Redux each time the store is updated.
       If a component(using useSelector()) is unmounted from DOM, react-redux
       will automatically unsubscribe to the Store.
+      ```
+      const counter = useSelector((state) => state.counter);
+      ```
 
       There is also useStore() hook provided by react-redux that gives access to
       the whole store.
@@ -135,6 +138,15 @@
       dispatch actions to the store(Reducer is in the store).
     - Create the handler functions for any buttons/elements as required and
       dispatch the action type. The action type should match with those in the store.
+      ```
+      import { useDispatch } from "react-redux";
+      const dispatch = useDispatch();
+      // Using just Redux and no Redux toolkit.
+      dispatch({type: 'increment'});
+      (OR)
+      // Using Redux toolkit.
+      dispatch(counterActions.increment());
+      ```
 
 ### Using data from the store and updating data in the store using connect()(Class based components)
   * connect() is provided by react-redux.

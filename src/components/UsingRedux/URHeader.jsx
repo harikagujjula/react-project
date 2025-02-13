@@ -1,6 +1,6 @@
 import classes from "./URHeader.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { authActions } from "../../store/counter";
+import { authActions } from "../../store/auth";
 
 const URHeader = () => {
   // Define dispatch that returns the dispatch function from redux store.

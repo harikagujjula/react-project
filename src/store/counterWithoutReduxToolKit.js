@@ -1,4 +1,5 @@
-// This is a Redux store.
+// This is a Redux store created with just using Redux. For Reduxtoolkit, refer to index.js / auth.js/counter.js
+
 // Created another store with name "counter.js" which uses Redux toolkit for the same implementation below.
 // Hence Renaming this to counterWithoutReduxToolKit.js. To use this file back,
 // rename it to counter.js and the other file to a different name.

@@ -1,8 +1,6 @@
 // This is a Redux store using Redux toolkit.
 // import { createStore } from "redux";
-import { createSlice, configureStore } from "@reduxjs/toolkit";
-
-const initialCounterState = { counter: 0, showCounter: true };
+import { createSlice } from "@reduxjs/toolkit";
 
 // Preparing a slice of global state. Example: a slice for counter, a slice for authentication etc.
 /* createSlice needs following properties:
@@ -24,31 +22,22 @@ const initialCounterState = { counter: 0, showCounter: true };
         translating the code to immutable way.
     Returns a slice of state.
  */
-const counterSlice = createSlice({
-  name: "counter",
-  initialState: initialCounterState,
+// Creating another slice for Authentication.
+const initialAuthState = { isAuthenticated: false };
+
+const authSlice = createSlice({
+  name: "authentication",
+  initialState: initialAuthState,
   reducers: {
-    increment(state) {
-      // Mutating the state object is allowed with Redux toolkit(Imgur - internal
-      // package) which tranlsates this code to immutable way.
-      state.counter++;
+    login(state) {
+      state.isAuthenticated = true;
     },
-    decrement(state) {
-      state.counter--;
-    },
-    increase(state, action) {
-      // Also accepting action parameter as we are dealing with payload/data.
-      // Note that the default field name that redux uses for any extra data is payload.
-      state.counter += action.payload;
-    },
-    toggleCounter(state) {
-      state.showCounter = !state.showCounter;
+    logout(state) {
+      state.isAuthenticated = false;
     },
   },
 });
+export const authActions = authSlice.actions;
 
-// Exporting actions.
-export const counterActions = counterSlice.actions;
-
-// We would need only reducer and merge in the index.js
-export default counterSlice.reducer;
+// We would need only reducer and merge in the index.js.
+export default authSlice.reducer;
