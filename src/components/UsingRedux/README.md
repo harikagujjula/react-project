@@ -207,12 +207,29 @@
   * configureStore() provided by @reduxjs/toolkit also creates store similar to
     createStore() provided by Redux but also makes merging multiple reducers
     (from multiple slices of state) into one single reducer.
+    Example: Configure store with single reducer:
+    ```
+    const store = configureStore({
+     reducer: counterSlice.reducer,
+    });
+    ```
+    Configure store with multiple reducers:
+    ```
+    const store = configureStore({
+      reducer: { counter: counterSlice.reducer, auth: authslice.reducer },
+    });
+    ```
 ### Dispatching actions
   * createSlice() automatically creates unique action identifiers for our methods in
     different reducers. These methods are called action creators as they will
     create action objects for us where these objects already have a type property
     with unique identifier per action, automatically created behind the scenes.
   * We can just export the actions in the store and import them as needed in the
-    component.
+    component and pass it to dispatch.
+    Example:
+    ```
+    import { authActions } from '../store/counter.js';
+    dispatch(authActions.login());
+    ```
 
 

@@ -24,9 +24,10 @@ const URCounter = () => {
     different objects, arrays/nexted objects, multiple operations in the store.
   */
   // Getting the counter managed by Redux.
-  const counter = useSelector((state) => state.counter);
+  // Updating the variables in state with respect to configureStore() => state.counter.counter
+  const counter = useSelector((state) => state.counter.counter);
   // Getting showCounter managed by Redux.
-  const showCounter = useSelector((state) => state.showCounter);
+  const showCounter = useSelector((state) => state.counter.showCounter);
 
   /* Using useDispatch() to dispatch actions.
      Accepts No arguments.

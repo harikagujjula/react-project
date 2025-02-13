@@ -54,7 +54,7 @@
     Form submit, which is default form's behavior.
     To prevent that, we can add the submit function to the forms onSubmit and
     use event.preventDefault() which will prevent the default behavior of page
-    reload. Note that this is necessary to be implemented for any form in React.
+    reload. *** Note that this is necessary to be implemented for any form in React. ***
     * Another way of preventing page reload on form submission is by using Form
     actions that is only available with React >= 19.
 

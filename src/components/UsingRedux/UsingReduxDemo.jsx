@@ -1,24 +1,21 @@
 import URCounter from "./URCounter";
 // import URCounterClassBased from "./URCounterClassBased";
-import { Provider } from "react-redux";
-// Importing store from counter.
-import store from "../../store/counter";
+import { useSelector } from "react-redux";
+
+import URAuth from "./URAuth";
+import URHeader from "./URHeader";
+import URUserProfile from "./URUserProfile";
 
 export default function UsingReduxDemo() {
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
   return (
     <>
-      {/* Importing Provider and wrapping the URCounter with Provider to provide
-    the Counter redux store to URCounter and its child components. Also should
-    pass the store as prop.
-
-    Note: USually any application should have only one Redux state/store and
-    should be provided/imported/used at top most level of the component(App component).
-    Since we are trying to put all learning stuff into one project, we are
-    providing the store at just this component level.*/}
-      <Provider store={store}>
-        {/* <URCounterClassBased /> */}
-        <URCounter />
-      </Provider>
+      {/* <URCounterClassBased /> */}
+      {/* Adding multiple components. */}
+      <URHeader />
+      {!isAuth && <URAuth />}
+      {isAuth && <URUserProfile />}
+      <URCounter />
     </>
   );
 }
